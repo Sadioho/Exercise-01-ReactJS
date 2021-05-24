@@ -8,12 +8,12 @@ class Header extends React.Component {
         <div className="header">
         <img src={logo} alt="LOGO" />
         <div className="header__form">
-          <a className="btn" href="#">Giao ngay</a>
-          <form action="#">
+          <a href="/#" className="btn" >Giao ngay</a>
+          <form >
             <input type="text" placeholder="Nhập địa chỉ giao hàng" />
           </form>
         </div>
-        <a className="btn" href="#">Đăng nhập</a>
+        <a  href="/#" className="btn">Đăng nhập</a>
       </div>
       ) ;
     }
