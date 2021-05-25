@@ -6,7 +6,7 @@ import CategoryRow from "./CategoryRow";
 class FilterProductTable extends Component {
   render() {
     return (
-      <div className="filter-product">
+      <div className="body__filter-product">
         <SearchBar />
         <CategoryRow heading="Phổ biến"/>
         <ProductTable />
