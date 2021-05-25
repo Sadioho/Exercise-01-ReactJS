@@ -74,10 +74,14 @@ li {
   margin-bottom: 1rem;
 }
 .product-table .product-table__content {
+
   display: flex;
   align-items: center;
   background-color: white;
   padding: 0.7rem;
+}
+.product-table .product-table__content figcaption{
+  width: 100%;
 }
 .product-table__title {
   font-size: 1.4rem;

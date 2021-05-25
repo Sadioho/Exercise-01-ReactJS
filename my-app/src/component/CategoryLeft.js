@@ -5,24 +5,8 @@ class CategoryLeft extends Component{
     render(){
         return(
             <ul className="ct-left">  
-            <CategoryRow heading="Name title 1"/> 
-            <CategoryRow heading="Name title 2"/> 
-            <CategoryRow heading="Name title 3"/> 
-            <CategoryRow heading="Name title 4"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
-            <CategoryRow heading="Name title 5"/> 
+            <CategoryRow /> 
+    
         </ul>
         )
     }
