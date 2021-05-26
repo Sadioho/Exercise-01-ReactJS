@@ -20,6 +20,7 @@ class CategoryRow extends Component{
         return (
             <ul>
                 {this.state.categorys.map((listItem) => (
+                    
                     <li className="body__category-name"  key={listItem.id}> <a href='/#'>{listItem.name} </a> </li>
                 ))}
             </ul>
