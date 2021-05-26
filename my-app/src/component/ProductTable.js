@@ -23,8 +23,8 @@ class ProductTable extends Component {
     return (
       <div>
         {this.state.items.map((item) => (
-         
-          <div className="product-table" key={item._id}>
+          item.categ_id.indexOf(this.props.categoryId)>=0 ?
+          <div className="product-table" key={item._id} >
             <figure className="product-table__content">
               <img src={item.image} alt="img tea" />
               <figcaption>
@@ -38,7 +38,8 @@ class ProductTable extends Component {
                 </span>
               </figcaption>
             </figure>
-          </div>
+          </div> 
+          : null
         ))}
       </div>
     );
