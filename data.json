@@ -11,7 +11,7 @@
             "description": "\u0110\u1eadm \u0111\u00e0 chu\u1ea9n gu - b\u1edfi tr\u00e0 oolong n\u01b0\u1edbng \u0111\u1eadm v\u1ecb ho\u00e0 c\u00f9ng l\u1edbp s\u1eefa th\u01a1m b\u00e9o.\n\nH\u01b0\u01a1ng v\u1ecb ch\u00e2n \u00e1i \u0111\u00fang gu \u0111\u1eadm \u0111\u00e0 - tr\u00e0 oolong \u0111\u01b0\u1ee3c \"sao\" (n\u01b0\u1edbng) l\u00e2u h\u01a1n cho v\u1ecb \u0111\u1eadm \u0111\u00e0, ho\u00e0 quy\u1ec7n v\u1edbi s\u1eefa th\u01a1m ng\u1eady. Cho t\u1eebng ng\u1ee5m m\u00e1t l\u1ea1nh, l\u01b0u luy\u1ebfn v\u1ecb tr\u00e0 s\u1eefa \u0111\u1eadm \u0111\u00e0 m\u00e3i n\u01a1i cu\u1ed1ng h\u1ecdng.",
             "product_odoo": {
                 "product_tmpl_id": 4674,
-                "variants": [
+                "variants": [ 
                     {
                         "code": "10010143",
                         "price": 55000,

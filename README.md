@@ -43,4 +43,5 @@
 
 
 
-# Bind Là Gì?
+# ASYNC, SYNC, PROMISE
+![sync]('./sun.png);
