@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import logofooter from "./logo_footer.png";
-import logoSaleNoti from "./logoSaleNoti.png";
-import appstore from "./appstore.png";
-import google from "./google-play-badge.png";
+import logofooter from "../image/logo_footer.png";
+import logoSaleNoti from "../image/logoSaleNoti.png";
+import appstore from "../image/appstore.png";
+import google from "../image/google-play-badge.png";
 
 class Footer extends Component {
   render() {

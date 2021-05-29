@@ -19,10 +19,10 @@ class CategoryRow extends Component{
     render() {
         return (
             <ul>
-                {this.state.categorys.map((listItem) => (
-                    
-                    <li className="body__category-name"  key={listItem.id}> <a href='/#'>{listItem.name} </a> </li>
-                ))}
+                {this.state.categorys.map((listItem,index) => (  
+                   index < 15 ?  <li className="body__category-name"  key={listItem.id}> <a href='/#'>{listItem.name} </a> </li> : null
+                  
+                    ))}
             </ul>
         )
     }
