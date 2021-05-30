@@ -32,13 +32,16 @@
         - Form Coupon
     - Footer
     
-## 2. Build A Static Version in React
-
-## 3: Identify The Minimal (but complete) Representation Of UI State
-
+## 2. Xây dựng một bản tĩnh
 - Hiển thị danh sách Category Left bằng cách fetch API lấy dữ liệu về
 - Hiển thị danh sách ProductTable theo nhóm Category bằng cách fetch API lấy dữ liệu về 
     - Tạo 1 props cho component ProductTable để xét dữ liệu hiển thị ra theo groupCategory 
+
+## 3: Trạng thái của người dùng
+- Thanh Search sẽ là trạng thái 
+- Thanh Category sẽ là trạng thái
+
+
 
 
 
