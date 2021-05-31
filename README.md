@@ -44,4 +44,5 @@
 
 
 # ASYNC, SYNC, PROMISE
-![sync]('./sun.png);
+
+![sync](./sun.png)

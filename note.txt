@@ -1,0 +1,27 @@
+Header 
+- Logo
+- Button: component (1) 
+- Search Input: (2)
+Body 
+- Sidebar - LeftContainer
+	- CategoryList
+		- CategoryItem (3)
+- MenuContainer - ProductContainer 
+	- Search Input (2)
+	- CategoryName (4)
+	- ProductList 
+		- ProductItem (5) 
+- CartContainer 
+Footer 
+--- Default 
+
+Bài tập 2: 
+- Tạo component Button có thể sử dụng lại nhiều chỗ
+- Tạo component Currency có thể sử dụng lại nhiều chỗ 
+- Tạo component Input có thể sử dụng lại 3 chỗ 
+- Tạo component Image - url, style, className 
+- Tạo component AddButton 
+
+- Trong bodyComponent => fetch API
+	+ fetch ca 2 api + tao ra 1 tap du lieu nhu anh demo 
+	+ day data xuong cho cac thanh phan con
