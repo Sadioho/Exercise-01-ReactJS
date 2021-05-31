@@ -1,0 +1,35 @@
+.coupon {
+  width: 45rem;
+  position: fixed;
+  background-color: white;
+  font-size: 1.4rem;
+  box-shadow: 0px 2px 5px 0px #0000002d;
+  
+  &__header {
+    padding: 2rem;
+  }
+  &__detail {
+    line-height: 3rem;
+    border-top: 2px solid rgb(204, 204, 204);
+    border-bottom: 1px solid rgb(204, 204, 204);
+    &-sum {
+    padding: 1rem  2rem 0  ;
+        
+    }
+    &-currency {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding: 1rem 2rem;
+      align-items: center;
+      
+      
+    }
+    &-sale {
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+    
+    }
+  }
+}

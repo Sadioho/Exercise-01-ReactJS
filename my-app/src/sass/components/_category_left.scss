@@ -1,0 +1,18 @@
+.left-container{
+    padding: 1rem;
+    width: 30rem; 
+    font-size: 1.2rem;
+    position: fixed;
+}
+
+.category-list{
+    background-color: white;
+    padding: 1rem 2rem;
+}
+.category-item{
+    padding: 1rem;
+    &:hover{
+        color: grey;
+        border-bottom: 2px solid orange;
+    }
+}

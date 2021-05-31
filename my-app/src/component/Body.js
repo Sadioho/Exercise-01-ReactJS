@@ -1,23 +1,27 @@
-import React, { Component } from 'react'
-import CategoryLeft from "./CategoryLeft";
-import FilterProductTable from './FilterProductTable';
-import FormCoupon from './FormCoupon';
+import React, { Component } from "react";
+import LeftContainer from "./LeftContainer";
+import ProductContainer from "./ProductContainer";
+import CartContainer from "./CartContainer";
 
-class Body extends Component{
-    render(){
-        return (
-            <div className="body">
-            <div className="body__category-left">
-                <CategoryLeft />
+class Body extends Component {
+  render() {
+    return (
+      <div className="body">
+        <div className="container">
+          <div className="row">
+            <div className="col-left">
+              <LeftContainer />
             </div>
-            <div className="body__filter">
-                <FilterProductTable/>
+            <div className="col-product ">
+              <ProductContainer />
             </div>
-            <div className="body__coupon">
-                <FormCoupon/>
+            <div className="col-right">
+              <CartContainer />
             </div>
+          </div>
         </div>
-        )
-    }
+      </div>
+    );
+  }
 }
 export default Body;

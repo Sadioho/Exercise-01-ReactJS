@@ -1,0 +1,65 @@
+.footer {
+  position: relative;
+  z-index: 2000;
+  background-color: black;
+  padding: 10rem 0 2rem 0;
+  color: white;
+  margin: auto;
+  font-size: 1.25rem;
+  display: none;
+  .row {
+    justify-content: space-between;
+  }
+  &__widget {
+    &-heading {
+      font-size: 1.6rem;
+      color: orange;
+      text-transform: uppercase;
+    }
+  }
+  &__widget-1 {
+    img {
+      width: 15rem;
+    }
+  }
+  &__widget-2 {
+    &-about {
+      display: flex;
+      align-items: stretch;
+    }
+    &-company {
+      font-size: 1.3rem;
+      color: white;
+      text-transform: uppercase;
+    }
+    img {
+      margin-top: 1rem;
+      width: 20rem;
+    }
+  }
+  &__widget-3 {
+    img {
+      width: 15rem;
+      display: block;
+      margin: 1rem 0;
+    }
+  }
+  &__widget-4 {
+    &-address {
+      a {
+        display: block;
+        color: white;
+        line-height: 2rem;
+      }
+    }
+  }
+
+  &__copyright {
+    margin-top: 1rem;
+    a {
+      display: block;
+      font-size: 1.3rem;
+      color: rgb(87, 87, 87);
+    }
+  }
+}

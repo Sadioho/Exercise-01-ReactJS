@@ -1,0 +1,26 @@
+  .header{
+    z-index: 1000;
+    position: fixed;
+    font-size: 1.25rem; 
+    background-color: rgb(255, 255, 255);
+    padding: 1.5rem;
+    top: 0;
+    .row{
+      justify-content: space-between;
+      align-items: center;
+    }
+      &__logo{
+          img{
+            width: 20rem;
+          }
+      }
+      &__form{
+        display: flex;
+        align-items: center;
+       &-search{
+         margin-left: 1.5rem;
+       }
+      }
+
+    
+  }
