@@ -48,8 +48,12 @@
 
 # ASYNC, SYNC, PROMISE
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ![sync](./sun.png)
+=======
+![sync](./sun.png);
+>>>>>>> bf67a215f9c67d73b9b72adadd47bcd7a6a6de2d
 =======
 ![sync](./sun.png);
 >>>>>>> bf67a215f9c67d73b9b72adadd47bcd7a6a6de2d
