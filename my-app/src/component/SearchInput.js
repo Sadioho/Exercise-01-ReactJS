@@ -6,7 +6,6 @@ class SearchInput extends Component {
       <div className={`search  ${this.props.class}`}>
         <span className="search__icon">
           <img src={this.props.src} alt={this.props.alt} />
-          
         </span>
         <input
           className={`search__input ${this.props.className}`}

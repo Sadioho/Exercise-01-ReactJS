@@ -1,8 +1,8 @@
 import React from "react";
 import logo from "../image/logo.png";
 import location from "../image/location.png";
-import Btn from '../component/component-mini/Btn';
-import SearchInput from '../component/SearchInput';
+import Btn from "../component/component-mini/Btn";
+import SearchInput from "../component/SearchInput";
 class Header extends React.Component {
   render() {
     return (
@@ -16,8 +16,8 @@ class Header extends React.Component {
             </div>
             <div className="col">
               <div className="header__form">
-                  <Btn text="Giao Ngay"></Btn>
-                  <SearchInput
+                <Btn text="Giao Ngay"></Btn>
+                <SearchInput
                   src={location}
                   placeholder="Nhập địa chỉ giao hàng"
                   type="text"
@@ -27,8 +27,7 @@ class Header extends React.Component {
               </div>
             </div>
             <div className="col">
-            <Btn text="Đăng nhập"></Btn>
-
+              <Btn text="Đăng nhập"></Btn>
             </div>
           </div>
         </div>

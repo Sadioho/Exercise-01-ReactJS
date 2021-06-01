@@ -70,7 +70,7 @@ li {
     border-top: 2px solid #cccccc;
     border-bottom: 1px solid #cccccc; }
     .coupon__detail-sum {
-      padding: 1rem  2rem 0; }
+      padding: 1rem 2rem 0; }
     .coupon__detail-currency {
       display: flex;
       justify-content: space-between;
@@ -83,10 +83,10 @@ li {
       align-items: center; }
 
 .left-container {
-  padding: 1rem;
   width: 30rem;
   font-size: 1.2rem;
-  position: fixed; }
+  position: fixed;
+  box-shadow: 0px 2px 5px 0px #0000002d; }
 
 .category-list {
   background-color: white;
@@ -161,8 +161,7 @@ li {
   padding: 10rem 0 2rem 0;
   color: white;
   margin: auto;
-  font-size: 1.25rem;
-  display: none; }
+  font-size: 1.25rem; }
   .footer .row {
     justify-content: space-between; }
   .footer__widget-heading {
@@ -252,7 +251,7 @@ li {
       margin-left: 1.5rem; }
 
 .body {
-  margin-top: 8rem; }
+  margin-top: 10rem; }
   .body .row {
     justify-content: space-between; }
 
