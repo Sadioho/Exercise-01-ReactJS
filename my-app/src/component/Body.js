@@ -27,19 +27,19 @@ class Body extends Component {
   }
 
   render() {
-    // console.log(this.state);
+
     this.state.categorys.map((category) => {
       let arr = [];
       this.state.products.map((product) => {
         if (product.categ_id.includes(category.id)) {
           arr.push(product);
         }
-
         return arr;
       });
-      category.newPro = arr;
+      category.newProduct = arr;
       return arr;
     });
+    console.log(this.state.categorys);
     return (
       <div className="body">
         <div className="container">

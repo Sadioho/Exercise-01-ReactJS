@@ -3,15 +3,16 @@ import ProductItem from "./ProductItem";
 
 class ProductList extends Component {
   render() {
+   
     return (
       <div>
         {this.props.dataList.map((listItem) =>
-          listItem.newPro.length > 0 ? (
-            <div key={listItem._id}>
+          listItem.newProduct.length > 0 ? (
+            <div key={listItem._id} id={listItem._id}>
               <li className="body__category-name">
-                <a href="/#">{listItem.name} </a>
+                <a href="/#" >{listItem.name} </a>
               </li>
-              {listItem.newPro.map((item) => (
+              {listItem.newProduct.map((item) => (
                 <ProductItem
                   key={item._id}
                   image={item.image}

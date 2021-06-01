@@ -1,13 +1,22 @@
 import React, { Component } from "react";
-
+import { Link, animateScroll as scroll } from "react-scroll";
 class CategoryList extends Component {
   render() {
     return (
       <ul className="category-list">
-        {this.props.dataCategoryList.slice(0, 15).map((listItem) => (
-          <li className="category-item" key={listItem.id}>
-            <a href="/#">{listItem.name} </a>
-          </li>
+        {this.props.dataCategoryList.map((listItem) => (
+          listItem.newProduct.length > 0 ?
+          <li key={listItem.id}>
+            <Link
+             className="category-item"
+            href="/#"
+            to={listItem._id}
+            spy={true}
+            smooth={true}
+            offset={-80}
+            duration={500}
+            >  {listItem.name}</Link>
+          </li> : null
         ))}
       </ul>
     );

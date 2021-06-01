@@ -1,9 +1,9 @@
 .footer {
   position: relative;
   z-index: 2000;
-  background-color: black;
+  background-color: $color-black;
   padding: 10rem 0 2rem 0;
-  color: white;
+  color: $color-white;
   margin: auto;
   font-size: 1.25rem;
   .row {
@@ -12,7 +12,7 @@
   &__widget {
     &-heading {
       font-size: 1.6rem;
-      color: orange;
+      color: $color-primary;
       text-transform: uppercase;
     }
   }
@@ -28,7 +28,7 @@
     }
     &-company {
       font-size: 1.3rem;
-      color: white;
+      color: $color-white;
       text-transform: uppercase;
     }
     img {
@@ -47,7 +47,7 @@
     &-address {
       a {
         display: block;
-        color: white;
+        color: $color-white;
         line-height: 2rem;
       }
     }
@@ -58,7 +58,7 @@
     a {
       display: block;
       font-size: 1.3rem;
-      color: rgb(87, 87, 87);
+      color: $color-grey-dark;
     }
   }
 }

@@ -1,17 +1,17 @@
 .coupon {
   width: 45rem;
   position: fixed;
-  background-color: white;
+  background-color: $color-white;
   font-size: 1.4rem;
-  box-shadow: 0px 2px 5px 0px #0000002d;
+  box-shadow: 0px 2px 5px 0px $color-grey-dark;
 
   &__header {
     padding: 2rem;
   }
   &__detail {
     line-height: 3rem;
-    border-top: 2px solid rgb(204, 204, 204);
-    border-bottom: 1px solid rgb(204, 204, 204);
+    border-top: 2px solid $color-grey-light;
+    border-bottom: 1px solid $color-grey-light;
     &-sum {
       padding: 1rem 2rem 0;
     }

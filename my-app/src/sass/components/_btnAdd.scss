@@ -3,10 +3,10 @@
     height: 3rem;
     outline: none;
     cursor: pointer;
-    background-color: white;
-    border: 2px solid orange;
+    background-color: $color-white;
+    border: 2px solid $color-primary;
     border-radius: 50%;
-    color: orange;
+    color: $color-primary;
     font-size: 2rem;
     font-weight: bold;
   }

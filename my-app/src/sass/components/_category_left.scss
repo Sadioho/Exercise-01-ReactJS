@@ -2,17 +2,24 @@
   width: 30rem;
   font-size: 1.2rem;
   position: fixed;
-  box-shadow: 0px 2px 5px 0px #0000002d;
+  box-shadow: 0px 2px 5px 0px $color-grey-dark;
 }
 
 .category-list {
-  background-color: white;
+  background-color: $color-white;
   padding: 1rem 2rem;
 }
 .category-item {
-  padding: 1rem;
+  padding: 1rem 0;
+  display: block;
   &:hover {
-    color: grey;
-    border-bottom: 2px solid orange;
+    color: $color-grey-dark;
   }
+}
+
+.active{
+
+  border-bottom: 2px solid $color-primary;
+  color: $color-primary ;
+
 }
