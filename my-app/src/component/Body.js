@@ -39,7 +39,7 @@ class Body extends Component {
       category.newProduct = arr;
       return arr;
     });
-    console.log(this.state.categorys);
+    // console.log(this.state.categorys);
     return (
       <div className="body">
         <div className="container">

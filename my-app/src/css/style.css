@@ -7,7 +7,7 @@
 
 html {
   font-size: 62.5%;
-  background-color: #fff; }
+  background-color: #f6f6f6; }
 
 body {
   box-sizing: border-box; }
@@ -26,7 +26,7 @@ li {
 .btn:visited {
   padding: 1rem 3rem;
   text-transform: uppercase;
-  border: 1px solid #707070;
+  border: 1px solid #9b9b9b;
   transition: border .5s; }
 
 .btn:active,
@@ -62,7 +62,7 @@ li {
   position: fixed;
   background-color: #fff;
   font-size: 1.4rem;
-  box-shadow: 0px 2px 5px 0px #707070; }
+  box-shadow: 0px 2px 5px 0px #9b9b9b; }
   .coupon__header {
     padding: 2rem; }
   .coupon__detail {
@@ -86,7 +86,7 @@ li {
   width: 30rem;
   font-size: 1.2rem;
   position: fixed;
-  box-shadow: 0px 2px 5px 0px #707070; }
+  box-shadow: 0px 2px 5px 0px #9b9b9b; }
 
 .category-list {
   background-color: #fff;
@@ -96,7 +96,7 @@ li {
   padding: 1rem 0;
   display: block; }
   .category-item:hover {
-    color: #707070; }
+    color: #9b9b9b; }
 
 .active {
   border-bottom: 2px solid #ea8025;
@@ -127,7 +127,7 @@ li {
         font-weight: 600; }
       .product__item-content-text {
         font-size: 1.25rem;
-        color: #707070; }
+        color: #9b9b9b; }
     .product__item-price {
       display: flex;
       justify-content: space-between; }
@@ -197,7 +197,7 @@ li {
     .footer__copyright a {
       display: block;
       font-size: 1.3rem;
-      color: #707070; }
+      color: #9b9b9b; }
 
 .container {
   width: 140rem;
@@ -239,10 +239,11 @@ li {
 .header {
   z-index: 1000;
   position: fixed;
+  top: 0;
   font-size: 1.25rem;
   background-color: #fff;
   padding: 1.5rem;
-  top: 0; }
+  width: 100%; }
   .header .row {
     justify-content: space-between;
     align-items: center; }
