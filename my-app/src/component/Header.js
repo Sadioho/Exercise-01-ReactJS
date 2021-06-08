@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../image/logo.png";
 import location from "../image/location.png";
-import Btn from "../component/component-mini/Btn";
+import Btn from "../component/common/Btn";
 import SearchInput from "../component/SearchInput";
 class Header extends React.Component {
   render() {

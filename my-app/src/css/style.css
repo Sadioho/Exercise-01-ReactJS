@@ -42,9 +42,6 @@ li {
   display: block;
   text-align: center; }
 
-.btn-fix {
-  padding: 0.5rem 3rem !important; }
-
 .btnAdd {
   width: 3rem;
   height: 3rem;
@@ -66,16 +63,15 @@ li {
   .coupon__header {
     padding: 2rem; }
   .coupon__detail {
-    line-height: 3rem;
     border-top: 2px solid #999;
     border-bottom: 1px solid #999; }
     .coupon__detail-sum {
-      padding: 1rem 2rem 0; }
+      padding-top: 1rem; }
     .coupon__detail-currency {
       display: flex;
       justify-content: space-between;
       margin-bottom: 1rem;
-      padding: 1rem 2rem;
+      padding: 0rem 2rem;
       align-items: center; }
     .coupon__detail-sale {
       padding: 1rem 2rem;
@@ -263,3 +259,59 @@ li {
 .body__category-name {
   margin: 1rem;
   font-size: 1.4rem; }
+
+.placehoder_row {
+  background-color: rgba(151, 151, 151, 0.534);
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden; }
+  .placehoder_row::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.35) 16%, rgba(255, 255, 255, 0) 32%);
+    animation: scanner 2s linear infinite;
+    z-index: 1; }
+
+.rectshape {
+  width: 10em;
+  height: 10rem;
+  background-color: rgba(168, 168, 168, 0.534);
+  position: relative;
+  overflow: hidden; }
+  .rectshape::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.35) 8%, rgba(255, 255, 255, 0) 16%);
+    animation: scanner 2s linear infinite;
+    z-index: 1; }
+
+.width-small {
+  width: 20rem;
+  height: 2rem; }
+
+.width-medium {
+  width: 45rem;
+  height: 2rem; }
+
+.product-pla {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between; }
+
+@keyframes scanner {
+  0% {
+    transform: translateX(-20%); }
+  100% {
+    transform: translateX(170%); } }
+
+.none-data {
+  height: 100vh;
+  text-align: center; }

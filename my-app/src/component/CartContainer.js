@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Btn from "../component/component-mini/Btn";
-import Currency from "../component/component-mini/Currency";
+import Btn from "../component/common/Btn";
+import Currency from "../component/common/Currency";
 import SearchInput from "../component/SearchInput";
 
 class CartContainer extends Component {
@@ -12,10 +12,16 @@ class CartContainer extends Component {
         </div>
 
         <div className="coupon__detail">
-          <p className="coupon__detail-sum">Cộng (0 món)</p>
+
+        <div className="coupon__detail-currency">
+        <p className="coupon__detail-sum">Cộng (0 món)</p>
+            <Currency price="0" /> 
+          </div>
+
+         
           <div className="coupon__detail-currency">
             <p>Vận chuyển</p>
-            <Currency price="0" />
+            <Currency price="0" /> 
           </div>
           <form className="coupon__detail-sale">
             <SearchInput

@@ -3,9 +3,10 @@ import CategoryList from "./CategoryList";
 
 class LeftContainer extends Component {
   render() {
-    return (
+    return ( 
       <div className="left-container">
         <CategoryList dataCategoryList={this.props.dataLeft} />
+      
       </div>
     );
   }
