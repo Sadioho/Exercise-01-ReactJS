@@ -22,9 +22,11 @@ class ProductContainer extends Component {
           handleChange={(e) => this.setState({ searchField: e.target.value })}
         />
           {
+            
             dataList.map((item)=>
-              item.newProduct.length > 0 ? <ProductList key={item._id} dataItem={item} dataSearch={this.state.searchField}></ProductList> : null 
+              item.newProduct.length > 0 ? <ProductList key={item._id} dataItem={item} dataSearch={this.state.searchField}></ProductList> : null
             )
+
           }
       </div>
     );

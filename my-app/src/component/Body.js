@@ -11,7 +11,7 @@ class Body extends Component {
     this.state = {
       loading: true,
       listCategory: [],
-    };
+    } 
   }
 
   merge = (data1, data2) => {
@@ -31,17 +31,19 @@ class Body extends Component {
     fetch("https://api.thecoffeehouse.com/api/v2/category/web")
       .then((res) => res.json())
       .then((data1) => {
+        if(data1.status_code !== 500){
         fetch("https://api.thecoffeehouse.com/api/v2/menu")
           .then((res) => res.json())
           .then((data2) => {
+            if(data2.status_code !== 500){
             let newData = this.merge(data1, data2.data);
-            // console.log(newData);
             this.setState({
               listCategory: newData,
               loading: false,
             });
+          }
           });
-      });
+      }});
   }
 
   render() {
