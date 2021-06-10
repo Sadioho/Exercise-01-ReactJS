@@ -1,26 +1,40 @@
 import React, { Component } from "react";
-import { Link } from "react-scroll";
+
 class CategoryList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: 1,
+    };
+  }
+  scroll = (data) => {
+
+      let elm = document.getElementById(`${data}`);
+      if(elm !==null){
+        elm.scrollIntoView();
+        this.setState({
+          active: data,
+        });
+      }    
+  };
+
   render() {
-  
-  // const scroll=()=>{
-  //   console.log(window.scrollY);
-  // }
-  // window.addEventListener('scroll',scroll)
-
-
     return (
-      <ul className="category-list"> 
-        {this.props.dataCategoryList.map((listItem) => (
-          listItem.newProduct.length > 0 ?
-          <li key={listItem.id}>
-            <a
-             className="category-item"
-            // onClick={()=>{window.scrollTo(0,2636)}}
-            >  {listItem.name}</a>
-          </li> 
-          : null
-        ))}
+      <ul className="category-list">
+        {this.props.dataCategoryList.map((listItem) =>
+          listItem.newProduct.length > 0 ? (
+            <li
+              className={this.state.active === listItem.id ? "active-1" : null}
+              key={listItem.id}
+              id={"abc" + listItem.id}
+              onClick={() => {
+                this.scroll(listItem.id);
+              }}
+            >
+              <p className="category-item ">{listItem.name}</p>
+            </li>
+          ) : null
+        )}
       </ul>
     );
   }

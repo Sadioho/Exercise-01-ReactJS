@@ -7,17 +7,12 @@ class ProductList extends Component {
     let filter = dataItem.newProduct.filter((item) =>
       item.product_name.toLowerCase().includes(dataSearch.toLowerCase())
     );
-
-
-
     if (filter.length === 0) { 
      return null; 
     }
-
-
     return (
-      <div>
-        <li className="body__category-name">
+      <div className="product-list-item">
+        <li className="body__category-name" id={dataItem.id}>
           <a href="/#">{dataItem.name} </a>
         </li>
         {filter.map((item) => (

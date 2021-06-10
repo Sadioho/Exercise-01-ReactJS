@@ -31,7 +31,7 @@ class Header extends React.Component {
             dataAddress: dataAdd.predictions,
             loadSussces: false,
           });
-        }
+        } 
       });
   };
 
@@ -43,7 +43,6 @@ class Header extends React.Component {
 
   render() {
     let { dataAddress } = this.state;
-    console.log(dataAddress);
     return (
       <div className="header">
         <div className="container-fluid">

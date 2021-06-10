@@ -8,18 +8,20 @@
 .category-list {
   background-color: $color-white;
   padding: 1rem 2rem;
+ 
 }
 .category-item {
   padding: 1rem 0;
   display: block;
+  cursor: pointer;
   &:hover {
     color: $color-grey-dark;
   }
 }
 
-.active{
 
-  border-bottom: 2px solid $color-primary;
-  color: $color-primary ;
 
-}
+.active-1{
+  color: $color-primary;
+  border-bottom: 1px solid ;
+ }

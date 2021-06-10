@@ -1,13 +1,13 @@
 .footer {
-  position: relative;
-
-
+  position: absolute;
   z-index: 2000;
   background-color: $color-black;
   padding: 10rem 0 2rem 0;
   color: $color-white;
   margin: auto;
   font-size: 1.25rem;
+  // bottom: 0;
+  width: 100%;
   .row {
     justify-content: space-between;
   }

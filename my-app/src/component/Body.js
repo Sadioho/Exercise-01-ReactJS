@@ -47,10 +47,8 @@ class Body extends Component {
   }
 
   render() {
-    // console.log(this.state.listCategory);
-
     return (
-      <div className="body">
+      <div className="body" >
         {this.state.loading ? (
           <PlacehoderLoading></PlacehoderLoading>
         ) : this.state.listCategory.length <= 0 ? (

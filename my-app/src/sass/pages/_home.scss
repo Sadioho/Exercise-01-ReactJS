@@ -1,14 +1,29 @@
 .body {
     margin-top: 10rem;
- 
- 
+    min-height: 200vh;
+    height: max-content;
+    
   .row {
     justify-content: space-between;
   }
 }
 
+
+
 // ở đây
 .body__category-name {
   margin: 1rem;
   font-size: 1.4rem;
+}
+
+
+
+
+
+.product-list-item ~ .none-data{
+  display: none;
+}
+
+.none-data{
+  color: orange;
 }
