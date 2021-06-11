@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import CartContainer from "../CartContainer";
 import Btn from "../common/Btn";
 import Currency from "../common/Currency";
 import Header from "../Header";
-import LeftContainer from "../LeftContainer";
-import ProductContainer from "../ProductContainer";
 import SearchInput from "../SearchInput";
 import RectShape from "./RectShape";
 import Row from "./Row";

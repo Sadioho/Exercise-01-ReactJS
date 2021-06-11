@@ -31,7 +31,7 @@ class Header extends React.Component {
             dataAddress: dataAdd.predictions,
             loadSussces: false,
           });
-        } 
+        }
       });
   };
 
@@ -56,7 +56,7 @@ class Header extends React.Component {
               <div className="header__form">
                 <Btn text="Giao Ngay"></Btn>
                 <div className="header__input">
-                  <img className="header__icon" src={location} />
+                  <img alt="#" className="header__icon" src={location} />
                   <SearchInput
                     placeholder="Nhập địa chỉ giao hàng"
                     type="text"

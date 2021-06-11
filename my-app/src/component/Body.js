@@ -11,9 +11,18 @@ class Body extends Component {
     this.state = {
       loading: true,
       listCategory: [],
-    } 
+      active: 1,
+    };
   }
 
+  // active category
+  changeActive = (id) => {
+    this.setState({
+      active: id,
+    });
+  };
+
+//mercer data
   merge = (data1, data2) => {
     data1.map((category) => {
       let arr = [];
@@ -21,8 +30,10 @@ class Body extends Component {
         if (product.categ_id.includes(category.id)) {
           arr.push(product);
         }
+        return arr;
       });
       category.newProduct = arr;
+      return category;
     });
     return data1;
   };
@@ -31,24 +42,25 @@ class Body extends Component {
     fetch("https://api.thecoffeehouse.com/api/v2/category/web")
       .then((res) => res.json())
       .then((data1) => {
-        if(data1.status_code !== 500){
-        fetch("https://api.thecoffeehouse.com/api/v2/menu")
-          .then((res) => res.json())
-          .then((data2) => {
-            if(data2.status_code !== 500){
-            let newData = this.merge(data1, data2.data);
-            this.setState({
-              listCategory: newData,
-              loading: false,
+        if (data1.status_code !== 500) {
+          fetch("https://api.thecoffeehouse.com/api/v2/menu")
+            .then((res) => res.json())
+            .then((data2) => {
+              if (data2.status_code !== 500) {
+                let newData = this.merge(data1, data2.data);
+                this.setState({
+                  listCategory: newData,
+                  loading: false,
+                });
+              }
             });
-          }
-          });
-      }});
+        }
+      });
   }
 
   render() {
     return (
-      <div className="body" >
+      <div className="body">
         {this.state.loading ? (
           <PlacehoderLoading></PlacehoderLoading>
         ) : this.state.listCategory.length <= 0 ? (
@@ -57,10 +69,16 @@ class Body extends Component {
           <div className="container">
             <div className="row">
               <div className="col-left">
-                <LeftContainer dataLeft={this.state.listCategory}/>
+                <LeftContainer  
+                  dataLeft={this.state.listCategory}
+                  //truyen ham qua left container
+                  changeActive={this.changeActive}
+                  //truyen active qua left container
+                  active={this.state.active}
+                />
               </div>
               <div className="col-product ">
-                <ProductContainer data={this.state.listCategory}/>
+                <ProductContainer data={this.state.listCategory} />
               </div>
               <div className="col-right">
                 <CartContainer />

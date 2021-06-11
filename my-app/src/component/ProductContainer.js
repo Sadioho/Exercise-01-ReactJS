@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import error from "../image/search.png"
 import ProductList from "./ProductList";
 import SearchInput from "./SearchInput";
-
+ 
 class ProductContainer extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class ProductContainer extends Component {
           ) : null
         )}
         <div className="none-data">
-          <img src={error}/
+          <img src={error} alt="#"/
           >
           <h1>Rất tiết chúng tôi không có sản phẩm</h1>
         </div>

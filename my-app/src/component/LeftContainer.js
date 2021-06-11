@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import CategoryList from "./CategoryList";
 
 class LeftContainer extends Component {
-  
   render() {
-  
-    return ( 
+    return (
       <div className="left-container">
-        <CategoryList dataCategoryList={this.props.dataLeft} />
-      
+        <CategoryList
+          dataCategoryList={this.props.dataLeft}
+          // nhan prop change active tu bo di 
+          changeActive={this.props.changeActive}
+          active={this.props.active}
+        />
       </div>
     );
   }
