@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Btn from "../component/common/Btn";
-import Currency from "../component/common/Currency";
-import SearchInput from "../component/SearchInput";
+import Btn from "../common/Btn";
+import Currency from "../common/Currency";
+import SearchInput from "./SearchInput";
 
 class CartContainer extends Component {
   render() {

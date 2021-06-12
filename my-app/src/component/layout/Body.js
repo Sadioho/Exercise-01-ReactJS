@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import LeftContainer from "./LeftContainer";
-import ProductContainer from "./ProductContainer";
-import CartContainer from "./CartContainer";
-import PlacehoderLoading from "./placehoders/PlacehoderLoading";
-import NoneData from "./placehoders/NoneData";
+import LeftContainer from "../features/LeftContainer";
+import ProductContainer from "../features/ProductContainer";
+import CartContainer from "../features/CartContainer";
+import PlacehoderLoading from "../placehoders/PlacehoderLoading";
+import NoneData from "../placehoders/NoneData";
 
 class Body extends Component {
   constructor(props) {
@@ -38,6 +38,7 @@ class Body extends Component {
     return data1;
   };
 
+  //fetch api
   componentDidMount() {
     fetch("https://api.thecoffeehouse.com/api/v2/category/web")
       .then((res) => res.json())
@@ -55,12 +56,13 @@ class Body extends Component {
               }
             });
         }
-      });
+      }
+      );
   }
 
   render() {
     return (
-      <div className="body">
+      <div className="body" id="body"  >
         {this.state.loading ? (
           <PlacehoderLoading></PlacehoderLoading>
         ) : this.state.listCategory.length <= 0 ? (
@@ -78,7 +80,12 @@ class Body extends Component {
                 />
               </div>
               <div className="col-product ">
-                <ProductContainer data={this.state.listCategory} />
+                <ProductContainer data={this.state.listCategory} 
+                  //truyen ham qua left container
+                  changeActive={this.changeActive}
+                  //truyen active qua left container
+                  active={this.state.active}
+                />
               </div>
               <div className="col-right">
                 <CartContainer />

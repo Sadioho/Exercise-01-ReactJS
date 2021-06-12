@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Header from "./component/Header";
-import Body from "./component/Body";
-import Footer from "./component/Footer";
+import Header from "./component/layout/Header";
+import Body from "./component/layout/Body";
+import Footer from "./component/layout/Footer";
 // import PlacehoderLoading from "./component/placehoders/PlacehoderLoading";
 
 class App extends Component {

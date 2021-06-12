@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 class CategoryList extends Component {
 
-  scroll = (data) => {
+  handleActive = (data) => {
+    //khi ma elm !==null tthì scroll đến id của product container
       let elm = document.getElementById(`${data}`);
       if(elm !==null){
         elm.scrollIntoView();
@@ -21,7 +22,7 @@ class CategoryList extends Component {
               key={listItem.id}
               id={"abc" + listItem.id}
               onClick={() => {
-                this.scroll(listItem.id);
+                this.handleActive(listItem.id);
               }}
             >
               <p className="category-item ">{listItem.name}</p>

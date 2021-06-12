@@ -13,7 +13,7 @@ class ProductList extends Component {
     return (
       <div className="product-list-item">
         <li className="body__category-name" id={dataItem.id}>
-          <a href="/#">{dataItem.name} </a>
+          <a  href="/#">{dataItem.name} </a>
         </li>
         {filter.map((item) => (
           <ProductItem

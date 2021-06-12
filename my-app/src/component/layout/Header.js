@@ -1,9 +1,9 @@
 import React from "react";
-import logo from "../image/logo.png";
-import location from "../image/location.png";
-import Btn from "../component/common/Btn";
-import SearchInput from "../component/SearchInput";
-import Address from "./common/Address";
+import logo from "../../image/logo.png";
+import location from "../../image/location.png";
+import Btn from "../common/Btn";
+import SearchInput from "../features/SearchInput";
+import Address from "../common/Address";
 
 class Header extends React.Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Currency from "../component/common/Currency";
-import Image from "../component/common/Image";
-import BtnAdd from "./common/BtnAdd";
+import Currency from "../common/Currency";
+import Image from "../common/Image";
+import BtnAdd from "../common/BtnAdd";
 
 class ProductItem extends Component {
   render() {

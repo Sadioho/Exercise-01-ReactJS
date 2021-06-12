@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Btn from "../common/Btn";
 import Currency from "../common/Currency";
-import Header from "../Header";
-import SearchInput from "../SearchInput";
+import Header from "../layout/Header";
+import SearchInput from "../features/SearchInput";
 import RectShape from "./RectShape";
 import Row from "./Row";
 

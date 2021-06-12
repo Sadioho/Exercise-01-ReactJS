@@ -7,10 +7,10 @@ class LeftContainer extends Component {
       <div className="left-container">
         <CategoryList
           dataCategoryList={this.props.dataLeft}
-          // nhan prop change active tu bo di 
+          // nhan prop change active tu body 
           changeActive={this.props.changeActive}
           active={this.props.active}
-        />
+        /> 
       </div>
     );
   }
