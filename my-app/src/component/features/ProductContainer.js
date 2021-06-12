@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import error from "../../image/search.png"
+import error from "../../image/search.png";
 import ProductList from "./ProductList";
 import SearchInput from "./SearchInput";
- 
+
 class ProductContainer extends Component {
   constructor(props) {
     super(props);
@@ -32,40 +32,46 @@ class ProductContainer extends Component {
   //   // })
   //   //   if(testDiv.offsetTop < a ){
   //   //    document.getElementById("demo").innerHTML = testDiv.offsetTop;
-   
+
   //   //    }else{
   //   //         document.getElementById("demo").innerHTML = 0;
-  
+
   //   //    }
   // }
-  
 
-  activeSr=(data)=>{
-    this.props.changeActive(data)
-    document.getElementById('abc'+data).classList.add("active-1")
-  }
-  scroll=()=>{
-    let a= window.scrollY + 90;
-    console.log("srcollY",a);
-    let sections=document.querySelectorAll(".body__category-name")
-    // console.log(sections);
-    sections.forEach(curent=>
-      document.getElementById(curent.id).offsetTop <= a && a <= document.getElementById(curent.id).offsetTop +
-          document.getElementById(curent.id).offsetHeight
-        ? this.activeSr(curent.id)
-        // ? console.log( "offsetTop", document.getElementById(curent.id).offsetTop )
-        : null
-    )
+  activeSr = (data) => {
+    this.props.changeActive(data);
+    let unActive = document.querySelectorAll(".active-1").length;
+    if (unActive > 0) {
+      document.querySelector(".active-1").classList.remove("active-1");
+    }
+    document.getElementById("abc" + data).classList.add("active-1");
   };
-
+  scroll = () => {
+    let a = window.scrollY + 100;
+    // console.log("srcollY",a);
+    let sections = document.querySelectorAll(".product-list-item");
+    // console.log(sections);
+    sections.forEach((curent) =>
+    //Khoảng cách từ top tới sections product
+      document.getElementById(curent.id).offsetTop <= a 
+      && a <=
+      
+      document.getElementById(curent.id).offsetTop +
+          document.getElementById(curent.id).offsetHeight
+        ?
+         this.activeSr(curent.id)
+        // console.log("offset top:"+ document.getElementById(curent.id).offsetTop , "height: " +document.getElementById(curent.id).offsetHeight)
+        : null
+    );
+  };
 
   render() {
     let dataList = this.props.data;
-    window.addEventListener('scroll',this.scroll)
-
+    window.addEventListener("scroll", this.scroll);
 
     return (
-      <div className="product-container"  >
+      <div className="product-container">
         <SearchInput
           type="text"
           className="size-100"
@@ -79,19 +85,16 @@ class ProductContainer extends Component {
               dataItem={item}
               dataSearch={this.state.searchField}
               id_scroll={item.id}
-
             ></ProductList>
           ) : null
         )}
         <div className="none-data">
-          <img src={error} alt="#"/
-          >
+          <img src={error} alt="#" />
           <h1>Rất tiết chúng tôi không có sản phẩm</h1>
         </div>
       </div>
     );
   }
 }
-
 
 export default ProductContainer;

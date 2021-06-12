@@ -11,7 +11,7 @@ class Body extends Component {
     this.state = {
       loading: true,
       listCategory: [],
-      active: 1,
+      active: "",
     };
   }
 

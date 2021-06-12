@@ -11,9 +11,9 @@ class ProductList extends Component {
      return null; 
     }
     return (
-      <div className="product-list-item">
-        <li className="body__category-name" id={dataItem.id}>
-          <a  href="/#">{dataItem.name} </a>
+      <div className="product-list-item" id={dataItem.id}>
+        <li className="body__category-name" >
+          <p >{dataItem.name} </p>
         </li>
         {filter.map((item) => (
           <ProductItem

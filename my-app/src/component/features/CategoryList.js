@@ -13,12 +13,13 @@ class CategoryList extends Component {
   };
 
   render() {
+
     return (
       <ul className="category-list">
         {this.props.dataCategoryList.map((listItem) =>
           listItem.newProduct.length > 0 ? (
             <li
-              className={this.props.active === listItem.id ? "active-1" : null}
+              className={listItem.id === this.props.dataCategoryList[0].id ? "active-1" : null}
               key={listItem.id}
               id={"abc" + listItem.id}
               onClick={() => {
