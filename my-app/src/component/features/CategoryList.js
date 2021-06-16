@@ -3,13 +3,11 @@ import React, { Component } from "react";
 class CategoryList extends Component {
 
   handleActive = (data) => {
-    //khi ma elm !==null tthì scroll đến id của product container
       let elm = document.getElementById(`${data}`);
-      if(elm !==null){
+      if(elm !== null){
         elm.scrollIntoView();
       }    
-      // goi ham callback tu thang leftcontainer
-      this.props.changeActive(data);
+      this.props.changeActive(data); 
   };
 
   render() {
@@ -17,9 +15,9 @@ class CategoryList extends Component {
     return (
       <ul className="category-list">
         {this.props.dataCategoryList.map((listItem) =>
-          listItem.newProduct.length > 0 ? (
+          listItem.listProduct.length > 0 ? (
             <li
-              className={listItem.id === this.props.dataCategoryList[0].id ? "active-1" : null}
+              className={listItem.id === this.props.active ? "active-1" : null}
               key={listItem.id}
               id={"abc" + listItem.id}
               onClick={() => {

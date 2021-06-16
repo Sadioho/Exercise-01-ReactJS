@@ -7,8 +7,9 @@ class SearchInput extends Component {
           className={`search__input ${this.props.className}`}
           type={this.props.type}
           placeholder={this.props.placeholder}
-          onChange={this.props.handleChange}
+          onChange={this.props.handleChange} 
           value={this.props.value}
+        
         />
     );
   }

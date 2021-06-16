@@ -4,6 +4,7 @@ import ProductContainer from "../features/ProductContainer";
 import CartContainer from "../features/CartContainer";
 import PlacehoderLoading from "../placehoders/PlacehoderLoading";
 import NoneData from "../placehoders/NoneData";
+import Order from "../features/Order";
 
 class Body extends Component {
   constructor(props) {
@@ -11,7 +12,12 @@ class Body extends Component {
     this.state = {
       loading: true,
       listCategory: [],
-      active: "",
+      active: null,
+      dataItem: [],
+      // order 
+      layoutOrder: false,
+      // size: null,
+      // price_sum: null
     };
   }
 
@@ -22,7 +28,20 @@ class Body extends Component {
     });
   };
 
-//mercer data
+  // get dataitem
+  getDataItem = (data) => {
+    this.setState({
+      dataItem: data,
+      layoutOrder: true,
+
+    });
+  };
+
+
+  // get size product 
+ 
+
+  //merger data
   merge = (data1, data2) => {
     data1.map((category) => {
       let arr = [];
@@ -32,13 +51,13 @@ class Body extends Component {
         }
         return arr;
       });
-      category.newProduct = arr;
+      category.listProduct = arr;
       return category;
     });
     return data1;
   };
 
-  //fetch api
+  // fetch api
   componentDidMount() {
     fetch("https://api.thecoffeehouse.com/api/v2/category/web")
       .then((res) => res.json())
@@ -52,17 +71,18 @@ class Body extends Component {
                 this.setState({
                   listCategory: newData,
                   loading: false,
+                  active: newData[0].id,
                 });
               }
             });
         }
-      }
-      );
+      });
   }
 
   render() {
+    // console.log(this.props.price_first);
     return (
-      <div className="body" id="body"  >
+      <div className="body" id="body">
         {this.state.loading ? (
           <PlacehoderLoading></PlacehoderLoading>
         ) : this.state.listCategory.length <= 0 ? (
@@ -71,20 +91,18 @@ class Body extends Component {
           <div className="container">
             <div className="row">
               <div className="col-left">
-                <LeftContainer  
+                <LeftContainer
                   dataLeft={this.state.listCategory}
-                  //truyen ham qua left container
                   changeActive={this.changeActive}
-                  //truyen active qua left container
                   active={this.state.active}
                 />
               </div>
               <div className="col-product ">
-                <ProductContainer data={this.state.listCategory} 
-                  //truyen ham qua left container
+                <ProductContainer
+                  data={this.state.listCategory}
                   changeActive={this.changeActive}
-                  //truyen active qua left container
                   active={this.state.active}
+                  getDataItem={this.getDataItem}
                 />
               </div>
               <div className="col-right">
@@ -93,6 +111,15 @@ class Body extends Component {
             </div>
           </div>
         )}
+        {this.state.layoutOrder ? (
+          <Order
+          src={this.state.dataItem.image}
+          product_name={this.state.dataItem.product_name}
+          onClick={() => this.setState({ layoutOrder: false })} 
+          dataItem={this.state.dataItem}
+         
+          />
+        ) : null}
       </div>
     );
   }

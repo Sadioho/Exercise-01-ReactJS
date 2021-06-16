@@ -53,8 +53,7 @@ li {
   border: 2px solid #ea8025;
   border-radius: 50%;
   color: #ea8025;
-  font-size: 2rem;
-  font-weight: bold; }
+  font-size: 1.5rem; }
 
 .coupon {
   width: 45rem;
@@ -108,9 +107,81 @@ li {
   font-size: 2.5rem;
   font-weight: bold; }
 
+.overlay {
+  background-color: rgba(0, 0, 0, 0.52);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1100; }
+
+.container_order {
+  width: 62.8rem;
+  position: fixed;
+  z-index: 1100;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem; }
+  .container_order h5 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 0.5rem 0; }
+  .container_order .header_order {
+    display: flex;
+    padding: 1rem 0;
+    position: relative; }
+    .container_order .header_order_text h4 {
+      font-size: 1.5rem; }
+  .container_order .body_order {
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey; }
+    .container_order .body_order_text {
+      padding: 1rem 0; }
+  .container_order .check_size {
+    width: 30rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    font-size: 1.3rem;
+    padding: 1rem 0; }
+    .container_order .check_size input {
+      display: inline-block;
+      width: 20px;
+      height: 20px; }
+  .container_order .search-input {
+    margin: 2rem 0rem 1rem; }
+  .container_order .footer_order_button {
+    border-top: 1px solid grey;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .container_order .footer_order_button-amount {
+      display: flex;
+      align-items: center; }
+      .container_order .footer_order_button-amount h5 {
+        margin: 0 1rem; }
+  .container_order .icon-close {
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer; }
+  .container_order .radio_check {
+    display: flex;
+    align-items: center; }
+    .container_order .radio_check label {
+      display: inline-block;
+      margin-left: 1rem; }
+
 /* product table */
 .product {
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  cursor: pointer; }
   .product__item {
     display: flex;
     background-color: #fff;
@@ -305,6 +376,9 @@ li {
     opacity: 1;
     height: max-content; } }
 
+.container-full {
+  position: relative; }
+
 .body {
   margin-top: 12rem;
   min-height: 100vh;
@@ -322,11 +396,17 @@ li {
 .none-data {
   color: orange; }
 
-.active-2 {
-  background-color: blue; }
-
 .product-container {
   margin-bottom: 17rem; }
+
+.search-input {
+  position: relative; }
+  .search-input i {
+    position: absolute;
+    left: .5rem;
+    top: 50%;
+    font-size: 2rem;
+    transform: translate(0, -50%); }
 
 .placehoder_row {
   background-color: rgba(151, 151, 151, 0.534);

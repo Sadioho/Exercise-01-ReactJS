@@ -8,38 +8,10 @@ class ProductContainer extends Component {
     super(props);
     this.state = {
       searchField: "",
-      // dataScroll:""
     };
   }
-
-  // demoSr = (e)=>  {
-  //   // var testDiv = document.getElementById("test");
-  //   var a = window.scrollY;
-  //   console.log(a);
-  //   var demo=document.getElementById('body');
-  //   // var demo1=document.getElementById('abc5');
-  //   let demo2=document.querySelector(".body__category-name");
-  //   console.log("scroll :" + demo.offsetTop);
-  //   if(a > demo.offsetTop - 100){
-  //     demo.classList.add("active-2")
-  //     console.log(`roll: ${demo2.getAttribute("id")}`);
-  //   }else{
-  //     demo.classList.remove("active-2")
-  //   }
-  //   // let data2 = this.props.data;
-  //   // data2.map(item=>{
-  //   //   console.log(item.id);
-  //   // })
-  //   //   if(testDiv.offsetTop < a ){
-  //   //    document.getElementById("demo").innerHTML = testDiv.offsetTop;
-
-  //   //    }else{
-  //   //         document.getElementById("demo").innerHTML = 0;
-
-  //   //    }
-  // }
-
-  activeSr = (data) => {
+// Khi scroll active
+  activeCategory= (data) => {
     this.props.changeActive(data);
     let unActive = document.querySelectorAll(".active-1").length;
     if (unActive > 0) {
@@ -47,53 +19,94 @@ class ProductContainer extends Component {
     }
     document.getElementById("abc" + data).classList.add("active-1");
   };
-  scroll = () => {
+
+  // tinh khoang cach scroll
+  scrollWindow = () => {
     let a = window.scrollY + 100;
-    // console.log("srcollY",a);
     let sections = document.querySelectorAll(".product-list-item");
-    // console.log(sections);
     sections.forEach((curent) =>
-    //Khoảng cách từ top tới sections product
-      document.getElementById(curent.id).offsetTop <= a 
-      && a <=
-      
-      document.getElementById(curent.id).offsetTop +
+      document.getElementById(curent.id).offsetTop <= a &&
+      a <=
+        document.getElementById(curent.id).offsetTop +
           document.getElementById(curent.id).offsetHeight
-        ?
-         this.activeSr(curent.id)
-        // console.log("offset top:"+ document.getElementById(curent.id).offsetTop , "height: " +document.getElementById(curent.id).offsetHeight)
+        ? this.activeCategory(curent.id)
         : null
     );
   };
 
+  componentDidMount() {
+    window.addEventListener("scroll", this.scrollWindow);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.scrollWindow);
+  }
+
   render() {
     let dataList = this.props.data;
-    window.addEventListener("scroll", this.scroll);
+    let dataProduct = [];
 
-    return (
-      <div className="product-container">
-        <SearchInput
-          type="text"
-          className="size-100"
-          placeholder="Tìm kiếm sản phẩm"
-          handleChange={(e) => this.setState({ searchField: e.target.value })}
-        />
-        {dataList.map((item) =>
-          item.newProduct.length > 0 ? (
-            <ProductList
-              key={item._id}
-              dataItem={item}
-              dataSearch={this.state.searchField}
-              id_scroll={item.id}
-            ></ProductList>
-          ) : null
-        )}
-        <div className="none-data">
-          <img src={error} alt="#" />
-          <h1>Rất tiết chúng tôi không có sản phẩm</h1>
-        </div>
-      </div>
+    dataList.map((item) =>
+      item.listProduct.length > 0 ? dataProduct.push(item.listProduct) : null
     );
+
+    let dataProductFilter = dataProduct.map((item) =>
+      item.filter((i) =>
+        i.product_name
+          .toLowerCase()
+          .includes(this.state.searchField.toLowerCase())
+      )
+    );
+
+    let result = dataProductFilter.some((item) => item.length > 0);
+    if (!result) {
+      return (
+        <div className="product-container">
+          <div className="search-input">
+          <i className="fas fa-search"></i>
+
+            <SearchInput
+              type="text"
+              className="size-100"
+              placeholder="Tìm kiếm sản phẩm"
+              handleChange={(e) =>
+                this.setState({ searchField: e.target.value })
+              }
+            />
+          </div>
+          <div className="none-data">
+            <img src={error} alt="#" />
+            <h1>Rất tiết chúng tôi không có sản phẩm</h1>
+          </div>
+        </div>
+      );
+    } else
+      return (
+        <div className="product-container">
+          <div className="search-input">
+            <i className="fas fa-search"></i>
+
+            <SearchInput
+              type="text"
+              className="size-100"
+              placeholder="Tìm kiếm sản phẩm"
+              handleChange={(e) =>
+                this.setState({ searchField: e.target.value })
+              }
+            />
+          </div>
+          {dataList.map((item) =>
+            item.listProduct.length > 0 ? (
+              <ProductList
+                key={item._id}
+                dataItem={item}
+                dataSearch={this.state.searchField}
+                id_scroll={item.id}
+                getDataItem={this.props.getDataItem}
+              ></ProductList>
+            ) : null
+          )}
+        </div>
+      );
   }
 }
 

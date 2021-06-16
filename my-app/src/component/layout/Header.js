@@ -11,26 +11,27 @@ class Header extends React.Component {
     this.state = {
       dataAddress: [],
       searchAddress: "",
-      loadSussces: true,
     };
   }
-
   handleChange = (e) => {
-    this.setState({ searchAddress: e.target.value, dataAddress: [] });
-    this.Address();
+      this.setState({ searchAddress: e.target.value, dataAddress: [] });
+      this.Address(e);
   };
 
-  Address = () => {
+
+
+  Address = (e) => {
     fetch(
-      `https://order.thecoffeehouse.com/api/location?address=${this.state.searchAddress}`
+      `https://order.thecoffeehouse.com/api/location?address=${e.target.value}`
     )
       .then((res) => res.json())
       .then((dataAdd) => {
         if (dataAdd.status === "OK") {
-          this.setState({
-            dataAddress: dataAdd.predictions,
-            loadSussces: false,
-          });
+            if(e.target.value.length>3){
+              this.setState({
+                dataAddress: dataAdd.predictions,
+              });
+            }
         }
       });
   };
@@ -63,6 +64,7 @@ class Header extends React.Component {
                     className="size-lager input-focus"
                     handleChange={this.handleChange}
                     value={this.state.searchAddress}
+                  
                   />
 
                   <div className="header__address ">

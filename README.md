@@ -61,17 +61,46 @@
 
 
 
+# Bài tập 4
 
+<image src="./image/order.png"></image>
 
+### Các thành phần 
 
+1. Container màu vàng chứa toàn bộ nội dung của 1 phiếu order product
+2. Header màu cam chứa hình ảnh và tên và size sản phẩm
+    1. Image màu đỏ chứa image sản phẩm
+    2. Name Product màu tím chứa tên sản phẩm
+    3. Size màu xanh trời chưa size
+3. Body màu tím đậm dùng để chứa loại size
+    1. Loại size màu xanh trời 
+4. Footer màu hồng chứa ghi chú, số lượng sản phẩm và nút thêm vào giỏ hàng
+    1. Input màu xanh lá thêm ghi chú
+    2. Nút xanh trời nhạt cộng trừ số lượng sản phẩm 
+    3. Số lượng hình tròn màu tím
+    4. Nút màu xanh lá thêm vào giỏ hàng khi order xong
+    5. Tổng giá tiền màu tím
+5. Nút close màu đen tắt order
+
+### Mô hình cấp bậc
+
+- Container 
+    - Header
+        - Image
+        - Name Product
+        - Size Product
+    - Body
+        - Size Product
+    - Footer
+        - Input Note
+        - Button Trừ
+        - Button Cộng
+        - Số lượng
+        - Button 
+            - Text
+            - Price Sum
+    - Close
 # ASYNC, SYNC, PROMISE
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ![sync](./sun.png)
-=======
-![sync](./sun.png);
->>>>>>> bf67a215f9c67d73b9b72adadd47bcd7a6a6de2d
-=======
-![sync](./sun.png);
->>>>>>> bf67a215f9c67d73b9b72adadd47bcd7a6a6de2d
+

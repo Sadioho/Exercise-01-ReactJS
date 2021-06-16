@@ -4,9 +4,11 @@ import Image from "../common/Image";
 import BtnAdd from "../common/BtnAdd";
 
 class ProductItem extends Component {
+ 
   render() {
+
     return (
-      <div className="product">
+      <div className="product" onClick={this.props.onClick}>
         <div className="product__item">
           <Image
             className="product__item-img"
@@ -22,7 +24,7 @@ class ProductItem extends Component {
             </p>
             <span className="product__item-price">
               <Currency className="size-currency-1" price={this.props.price} />
-              <BtnAdd />
+              <BtnAdd className="fas fa-plus"/>
             </span>
           </div>
         </div>

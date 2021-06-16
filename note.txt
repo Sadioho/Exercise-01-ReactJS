@@ -25,3 +25,41 @@ Bài tập 2:
 - Trong bodyComponent => fetch API
 	+ fetch ca 2 api + tao ra 1 tap du lieu nhu anh demo 
 	+ day data xuong cho cac thanh phan con
+
+
+
+
+
+15.6
+- Ở file ProductContainer đưa window.addEventListener vào trong ComponentdidMount
+- Edit css none product bằng cách 
+	- Ở file ProductContainer
+	 B1: Tạo ra 1 mảng mới dataProduct
+	 B2: Map dữ liệu merge được Body truyền qua ProductContainer bằng props data
+	 	- Kiểm tra nếu như dữ liệu có listProduct.lenght > 0 thì push vào mảng  dataProduct 
+	 B3: Viết một hàm dataProductFilter 
+	 	- Map dataProduct=> filter item => kiểm tra product_name includes có trùng với data nhập vào không 
+	B4: Tạo một biến result để kiểm tra nếu khi dữ liệu nhập vào không có thỏa mảng thì resutl này sẽ trả về false 
+	- Khi result === false thì return cái hình k có sản phẩm ra 
+	- Khi result === true thì return ProductList ra 
+- Order 
+	B1: Code  component Order
+	B2: tạo hàm Contructor set các state 
+		+ size: bằng với val của giá trị đầu tiên trong props.dataItem.variants mà Body truyền qua
+		+ price_sum: bằng với giá tiền đầu tiên trong props.dataItem.variants mà Body truyền qua
+		+ topping: cho bằng " "
+		+ amount: mặc định là 1 
+	B3: Viết một hàm getSize() : để set lại state size và price_sum khi mà check vào radio size
+	B4: Viết một hàm getCheck(): bắt sự kiện khi check vào checkbox 
+		 + Tạo ra một biến lấy node Element ứng với id 
+		 + Kiểm tra nếu checkbox mà checked thì set state price_sum = price_sum ban đầu + price của topping đó
+		 và set state topping sẽ bằng với topping ban đầu nối thêm với topping name khi mà mình checkbox vào
+		 + Ngược lại sẽ trừ đi price của topping đó nếu như k checked vào checkbox của topping đó
+		 và set state topping sẽ bằng với topping ban đầu replace cái tên topping khi k checkbox thành =>  " "
+	B5: plusAmount() : set state amount= amount ban đầu + 1 
+		 minusAmount() : set state amount= amount ban đầu - 1 nếu như amount ban đầu > 1  
+	B6: Trong ComponentdidMount 
+		+ bắt sự kiện checked của radio size
+
+	B7: Cái price_sum hiển thị ra sẽ bằng với price_sum * amount
+	

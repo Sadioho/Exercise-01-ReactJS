@@ -1,3 +1,12 @@
+.container-full{
+  position: relative;
+}
+
+
+
+
+
+
 .body {
     margin-top: 12rem;
     min-height: 100vh;
@@ -16,9 +25,6 @@
 }
 
 
-
-
-
 .product-list-item ~ .none-data{
   display: none;
 }
@@ -28,9 +34,20 @@
 }
 //product container
 
-.active-2{
-  background-color: blue;
-}
+// .active-2{
+//   background-color: blue;
+// }
 .product-container{
   margin-bottom: 17rem;
+}
+
+.search-input{
+  position: relative;
+  i{
+    position: absolute;
+    left:.5rem;
+    top: 50%;
+    font-size: 2rem;
+    transform: translate(0,-50%);
+  }
 }

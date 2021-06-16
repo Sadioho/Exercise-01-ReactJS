@@ -4,10 +4,9 @@ import CategoryList from "./CategoryList";
 class LeftContainer extends Component {
   render() {
     return (
-      <div className="left-container">
+      <div className="left-container"> 
         <CategoryList
           dataCategoryList={this.props.dataLeft}
-          // nhan prop change active tu body 
           changeActive={this.props.changeActive}
           active={this.props.active}
         /> 
