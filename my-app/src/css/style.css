@@ -24,6 +24,9 @@ li {
 .text-underline {
   text-decoration: underline; }
 
+.btn {
+  position: relative; }
+
 .btn:link,
 .btn:visited {
   padding: 1rem 3rem;
@@ -375,6 +378,38 @@ li {
   100% {
     opacity: 1;
     height: max-content; } }
+
+.delivery {
+  position: absolute;
+  background-color: #fff;
+  top: 4rem;
+  width: 29rem;
+  font-size: 1.2rem;
+  box-shadow: 0px 1px 10px -4px #9b9b9b; }
+  .delivery__button {
+    padding: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer; }
+    .delivery__button:not(:last-child) {
+      border-bottom: 1px solid #999;
+      opacity: .5;
+      text-transform: uppercase; }
+      .delivery__button:not(:last-child):hover {
+        opacity: 1; }
+  .delivery__icon {
+    font-size: 2.5rem;
+    margin-right: 1rem; }
+  .delivery__dropdown {
+    padding: 2rem 1rem;
+    border-top: 1px solid #ea8025; }
+    .delivery__dropdown-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem; }
+      .delivery__dropdown-item select {
+        padding: 1rem 2rem;
+        outline: none; }
 
 .container-full {
   position: relative; }

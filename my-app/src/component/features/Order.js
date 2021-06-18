@@ -143,6 +143,7 @@ export default class Order extends Component {
               <div className="footer_order_button-pay">
                 <Btn
                   className="btn-orange"
+                  href='/#'
                   text={`Đặt hàng  ${this.state.price_sum * this.state.amount} đ`}
                 />
               </div>

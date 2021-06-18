@@ -9,15 +9,13 @@ import Order from "../features/Order";
 class Body extends Component {
   constructor(props) {
     super(props);
+    this.container = React.createRef();
     this.state = {
       loading: true,
       listCategory: [],
       active: null,
       dataItem: [],
-      // order 
       layoutOrder: false,
-      // size: null,
-      // price_sum: null
     };
   }
 
@@ -33,12 +31,10 @@ class Body extends Component {
     this.setState({
       dataItem: data,
       layoutOrder: true,
-
     });
   };
 
-
-  // get size product 
+  // event ref
  
 
   //merger data
@@ -78,11 +74,12 @@ class Body extends Component {
         }
       });
   }
+ 
 
   render() {
-    // console.log(this.props.price_first);
+  
     return (
-      <div className="body" id="body">
+      <div className="body" id="body" >
         {this.state.loading ? (
           <PlacehoderLoading></PlacehoderLoading>
         ) : this.state.listCategory.length <= 0 ? (
@@ -113,11 +110,10 @@ class Body extends Component {
         )}
         {this.state.layoutOrder ? (
           <Order
-          src={this.state.dataItem.image}
-          product_name={this.state.dataItem.product_name}
-          onClick={() => this.setState({ layoutOrder: false })} 
-          dataItem={this.state.dataItem}
-         
+            src={this.state.dataItem.image}
+            product_name={this.state.dataItem.product_name}
+            onClick={() => this.setState({ layoutOrder: false })}
+            dataItem={this.state.dataItem}
           />
         ) : null}
       </div>

@@ -8,7 +8,7 @@ class CartContainer extends Component {
     return (
       <div className="coupon">
         <div className="coupon__header">
-          <Btn className="btn-orange btn-size-lager" text="Xem giỏ hàng" />
+          <Btn href='/#' className="btn-orange btn-size-lager" text="Xem giỏ hàng" />
         </div>
 
         <div className="coupon__detail">
@@ -29,7 +29,7 @@ class CartContainer extends Component {
               type="text"
               placeholder="Nhập mã ưu đãi tại đây"
             />
-            <Btn className="btn-orange btn-fix" text="  Áp dụng" />
+            <Btn href='/#' className="btn-orange btn-fix" text="  Áp dụng" />
           </form>
         </div>
 
