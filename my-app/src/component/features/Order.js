@@ -4,14 +4,14 @@ import Image from "../common/Image";
 import BtnAdd from "../common/BtnAdd";
 import Btn from "../common/Btn";
 
-export default class Order extends Component {
+export default class Order extends Component { 
   constructor(props) {
     super(props);
     this.state = {
       size: this.props.dataItem.variants[0].val,
       price_sum: this.props.dataItem.variants[0].price,
       topping: "",
-      amount:1
+      amount: 1,
     };
   }
 
@@ -37,20 +37,19 @@ export default class Order extends Component {
     }
   };
 
-
-  plusAmount=()=>{
+  plusAmount = () => {
     this.setState({
-      amount: this.state.amount + 1
-    })
-  }
+      amount: this.state.amount + 1,
+    });
+  };
 
-  minusAmount=()=>{
-    if(this.state.amount >1){
+  minusAmount = () => {
+    if (this.state.amount > 1) {
       this.setState({
-        amount: this.state.amount - 1
-      })
+        amount: this.state.amount - 1,
+      });
     }
-  }
+  };
 
   componentDidMount() {
     let a = document.querySelector("input[name='vehicle1']");
@@ -58,9 +57,22 @@ export default class Order extends Component {
       a.setAttribute("checked", "checked");
     }
   }
-  
+
+  pushPriceSum = () => {
+    let txtNote = document.getElementById("form-order").value;
+    this.props.pushPriceSum(
+      this.state.price_sum * this.state.amount,
+      this.state.amount,
+      this.state.topping,
+      txtNote,
+      this.state.size,
+      this.props.product_name
+    );
+  };
+
   render() {
     let dataItem = this.props.dataItem;
+    console.log(this.state.topping.slice(0,-2));
     return (
       <div>
         <div className="overlay" onClick={this.props.onClick}></div>
@@ -92,9 +104,7 @@ export default class Order extends Component {
                     onClick={() => this.getSize(item.val, item.price)}
                   />
                   <label htmlFor={item.code}>
-                    {`${item.val} (${
-                      item.price - dataItem.variants[0].price
-                    })`}
+                    {`${item.val} (${item.price - dataItem.variants[0].price})`}
                   </label>
                 </div>
               ))}
@@ -108,7 +118,7 @@ export default class Order extends Component {
               </div>
               <div className="check_size">
                 {dataItem.topping_list.map((item) => (
-                  <div key={item.code} className="radio_check" >
+                  <div key={item.code} className="radio_check">
                     <input
                       type="checkbox"
                       id={item.code}
@@ -132,19 +142,23 @@ export default class Order extends Component {
                 type="text"
                 className="size-100"
                 placeholder="Ghi chú thêm"
+                id="form-order"
               />
             </div>
             <div className="footer_order_button">
               <div className="footer_order_button-amount">
-                <BtnAdd className="fa fa-minus" onClick={this.minusAmount}/>
+                <BtnAdd className="fa fa-minus" onClick={this.minusAmount} />
                 <h5>{this.state.amount}</h5>
-                <BtnAdd className="fa fa-plus" onClick={this.plusAmount}/>
+                <BtnAdd className="fa fa-plus" onClick={this.plusAmount} />
               </div>
               <div className="footer_order_button-pay">
                 <Btn
                   className="btn-orange"
-                  href='/#'
-                  text={`Đặt hàng  ${this.state.price_sum * this.state.amount} đ`}
+                  href="/#"
+                  text={`Đặt hàng  ${
+                    this.state.price_sum * this.state.amount
+                  } đ`}
+                  onClick={this.pushPriceSum}
                 />
               </div>
             </div>

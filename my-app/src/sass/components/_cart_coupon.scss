@@ -29,3 +29,38 @@
     }
   }
 }
+
+
+.product__detail{
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-top: 1px solid $color-grey-light;
+  &-amount{
+    flex-flow: 1;
+    background-color:$color-primary;
+    padding: 0rem 1rem;
+    margin-right: 1rem; 
+    color: $color-white;
+       
+  }
+
+  &-text{
+    flex-grow: 2;
+  }
+
+  &-product_name{
+    font-weight: bold;
+  }
+  &-size,&-topping,&-note{
+    font-size: 1.2rem;
+  }
+
+  &-topping{
+    
+  }
+  &-note{
+    
+  }
+}

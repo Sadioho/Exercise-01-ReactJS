@@ -11,17 +11,12 @@ export default class ShipNow extends Component {
     };
   }
 
-  // khi click vao thời gian đặt hàng thì hàm này sẽ thực thi
-  // gọi tới hàm pushDataTime ở Header chuyển qua set state open bằng true
   handleTimerOrder = () => {
     this.props.pushDataTime();
     this.setState({
       open: true,
     });
   };
-
-  // KHi cick nút hẹn giờ ngay thì lấy value date và time truyền vào hàm setTextBtnShipNow
-  // để set lại content hiển thị trên nút giao ngay
 
   clickTimer = () => {
     let elementDate = document.getElementById("date");
@@ -40,7 +35,6 @@ export default class ShipNow extends Component {
     });
   };
 
-  // Lấy date value option khi onChange vào select và setState dateSelect bằng date value
   getSelect = () => {
     let elementSelectDate = document.getElementById("date");
     this.setState({
@@ -48,20 +42,20 @@ export default class ShipNow extends Component {
     });
   };
 
-  // Click giao ngay 
-
-  getShipNow=()=>{
-    this.props.setOpenDropDownTime()
-    console.log(this.props.timeNow,this.props.dateNow);
-  }
+  getShipNow = () => {
+    this.props.setOpenDropDownTime();
+    console.log(this.props.timeNow, this.props.dateNow);
+  };
 
   render() {
+    let { dataDate, dataTime, dateNow, timeNow, dateTimeDefault } = this.props;
+    let { active, dateSelect, open } = this.state;
     return (
       <div className="delivery">
         <div className="delivery__button" onClick={this.getShipNow}>
           <i className=" delivery__icon far fa-clock"></i>
           <span>GIAO NGAY</span>
-          {this.state.active === false && (
+          {active === false && (
             <svg
               width={20}
               height={20}
@@ -75,12 +69,12 @@ export default class ShipNow extends Component {
                 points="4,10 8,15 17,4"
               />
             </svg>
-          )}
+          )} 
         </div>
         <div className={`delivery__button`} onClick={this.handleTimerOrder}>
           <i className=" delivery__icon far fa-calendar"></i>
           <span> Thời gian đặt hàng </span>
-          {this.state.active === true && (
+          {active === true && (
             <svg
               width={20}
               height={20}
@@ -96,14 +90,14 @@ export default class ShipNow extends Component {
             </svg>
           )}
         </div>
-        {this.state.open && (
+        {open && (
           <div className="delivery__dropdown">
             <div className="delivery__dropdown-item">
               <label htmlFor="date">Ngày đặt</label>
               <select name="date" id="date" onChange={this.getSelect}>
-                {this.props.dataDate.map((item, index) =>
-                  item === this.props.dateNow ? (
-                    this.props.dataTime.length !== 0 && (
+                {dataDate.map((item, index) =>
+                  item === dateNow ? (
+                    dataTime.length !== 0 && (
                       <option key={index} value={item}>
                         HÔM NAY
                       </option>
@@ -120,15 +114,12 @@ export default class ShipNow extends Component {
             <div className="delivery__dropdown-item">
               <label htmlFor="time">Thời gian đặt</label>
               <select name="time" id="time">
-                {this.state.dateSelect === null ||
-                this.state.dateSelect === this.props.dateNow ? (
+                {dateSelect === null || dateSelect === dateNow ? (
                   <>
-                    {this.props.dataTime.length !== 0 ? (
+                    {dataTime.length !== 0 ? (
                       <>
-                        <option value={this.props.timeNow}>
-                          GIAO 15-30 PHÚT
-                        </option>
-                        {this.props.dataTime.map((item, index) => (
+                        <option value={timeNow}>GIAO 15-30 PHÚT</option>
+                        {dataTime.map((item, index) => (
                           <option key={index} value={item}>
                             {item}
                           </option>
@@ -136,7 +127,7 @@ export default class ShipNow extends Component {
                       </>
                     ) : (
                       <>
-                        {this.props.dateTimeDefault.map((item, index) => (
+                        {dateTimeDefault.map((item, index) => (
                           <option key={index} value={item}>
                             {item}
                           </option>
@@ -146,7 +137,7 @@ export default class ShipNow extends Component {
                   </>
                 ) : (
                   <>
-                    {this.props.dateTimeDefault.map((item, index) => (
+                    {dateTimeDefault.map((item, index) => (
                       <option key={index} value={item}>
                         {item}
                       </option>

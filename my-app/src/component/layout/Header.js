@@ -14,27 +14,26 @@ class Header extends React.Component {
       searchAddress: "",
       openDropDownTime: false,
       textBtnShipNow: "Giao Ngay",
-      timeNow: null, // thời gian hiện tại
-      dateNow: null, // ngày hiện tại
-      dataDate: [], // lưu ngày tiếp theo
-      dataTime: [], // lưu thời gian ngày hiện tại kể từ giờ hiện tại
+      timeNow: null, 
+      dateNow: null, 
+      dataDate: [], 
+      dataTime: [], 
       dateTimeDefault: [],
     };
     this.container = React.createRef();
   }
 
-  // xử lý onchang địa chỉ
   handleChangeAddress = (e) => {
     this.setState({ searchAddress: e.target.value, dataAddress: [] });
     this.Address(e);
   };
-  // lấy dữ liệu trả về lại cho input địa chỉ
+
   handleOnclick = (value) => {
     this.setState({
       searchAddress: value,
     });
   };
-  // get address từ API
+ 
   Address = (e) => {
     fetch(
       `https://order.thecoffeehouse.com/api/location?address=${e.target.value}`
@@ -51,7 +50,6 @@ class Header extends React.Component {
       });
   };
 
-  // click btn giao ngay hiển thị dropdow chọn thời gian giao
   handleOpenDropDown = () => {
     this.setState((state) => {
       return {
@@ -60,7 +58,6 @@ class Header extends React.Component {
     });
   };
 
-  // Click ngoài màn hình thì tắt đi cái dropdown giao hàng
   handleClickOutside = (event) => {
     if (
       this.container.current &&
@@ -72,21 +69,24 @@ class Header extends React.Component {
     }
   };
 
-  // set state dataDate bằng ngày bắt đầu và 2 ngày tiếp theo
   pushDataDate = () => {
     let arr = [];
     let dayNow = new Date();
     let nextDay = new Date();
     for (let i = 0; i < 3; i++) {
       nextDay.setDate(dayNow.getDate() + i);
-      arr.push(nextDay.toLocaleDateString("en-GB"));
+      arr.push(
+        nextDay.toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "2-digit",
+        })
+      );
     }
     this.setState({
       dataDate: arr,
     });
   };
 
-  //set state datatiem bằng thời gian hiện tại cho đến 8h30 của ngày hiện tại
   pushDataTime = () => {
     let timeStart = new Date();
     let timeEnd = new Date();
@@ -111,7 +111,6 @@ class Header extends React.Component {
     });
   };
 
-  //set content btn giao ngay
   setTextBtnShipNow = (date, time) => {
     if (time === this.state.timeNow && date === this.state.dateNow) {
       this.setState({
@@ -149,15 +148,13 @@ class Header extends React.Component {
     });
   };
 
-  setOpenDropDownTime=()=>{
+  setOpenDropDownTime = () => {
     this.setState({
-      openDropDownTime:false,
-      textBtnShipNow:"GIAO NGAY"
-    })
-  }
+      openDropDownTime: false,
+      textBtnShipNow: "GIAO NGAY",
+    });
+  };
 
-  // chạy hàm pushdatadate lắng nghe sự kiện mousedown gọi gới hàm handleClickoutside
-  // set state ngày hiện tại và giờ hiện tại
   componentDidMount() {
     this.setDateTimeDefault();
     this.pushDataDate();
@@ -167,19 +164,32 @@ class Header extends React.Component {
       hour: "2-digit",
       minute: "2-digit",
     });
-    let dateNow = dateTime.toLocaleDateString("en-GB");
+    let dateNow = dateTime.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+    });
     this.setState({
       timeNow: time,
       dateNow: dateNow,
     });
   }
+  
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-
   render() {
-    let { dataAddress } = this.state;
+    let {
+      dataAddress,
+      timeNow,
+      textBtnShipNow,
+      dateNow,
+      dataDate,
+      dataTime,
+      dateTimeDefault,
+      openDropDownTime,
+      searchAddress,
+    } = this.state;
 
     return (
       <div className="header">
@@ -195,18 +205,18 @@ class Header extends React.Component {
                 <Btn
                   className="button"
                   onClick={this.handleOpenDropDown}
-                  text={this.state.textBtnShipNow}
+                  text={textBtnShipNow}
                 />
-                {this.state.openDropDownTime && (
+                {openDropDownTime && (
                   <ShipNow
                     setTextBtnShipNow={this.setTextBtnShipNow}
-                    textBtnShipNow={this.state.textBtnShipNow}
-                    dateNow={this.state.dateNow}
-                    timeNow={this.state.timeNow}
-                    dataDate={this.state.dataDate}
-                    dataTime={this.state.dataTime}
+                    textBtnShipNow={textBtnShipNow}
+                    dateNow={dateNow}
+                    timeNow={timeNow}
+                    dataDate={dataDate}
+                    dataTime={dataTime}
                     pushDataTime={this.pushDataTime}
-                    dateTimeDefault={this.state.dateTimeDefault}
+                    dateTimeDefault={dateTimeDefault}
                     setOpenDropDownTime={this.setOpenDropDownTime}
                   />
                 )}
@@ -218,11 +228,11 @@ class Header extends React.Component {
                     type="text"
                     className="size-lager input-focus"
                     handleChange={this.handleChangeAddress}
-                    value={this.state.searchAddress}
+                    value={searchAddress}
                   />
 
                   <div className="header__address ">
-                    {this.state.searchAddress.length !== 0 ? (
+                    {searchAddress.length !== 0 ? (
                       dataAddress.length > 0 ? (
                         dataAddress.map((item) => (
                           <Address

@@ -13,9 +13,12 @@ class ProductList extends Component {
     let filter = dataItem.listProduct.filter((item) =>
       item.product_name.toLowerCase().includes(dataSearch.toLowerCase())
     );
+    // để k hiển thị ra name category khi mà filter product k có 
+    // console.log(filter);
     if (filter.length === 0) {
       return null;
-    }
+    } 
+
     return (
       <div className="product-list-item" id={dataItem.id}>
         <li className="body__category-name">

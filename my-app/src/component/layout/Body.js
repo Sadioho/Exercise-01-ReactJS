@@ -14,10 +14,11 @@ class Body extends Component {
       loading: true,
       listCategory: [],
       active: null,
-      dataItem: [],
+      dataItem: null,
       layoutOrder: false,
+      listOrder: null,
     };
-  }
+  } 
 
   // active category
   changeActive = (id) => {
@@ -35,7 +36,6 @@ class Body extends Component {
   };
 
   // event ref
- 
 
   //merger data
   merge = (data1, data2) => {
@@ -74,12 +74,27 @@ class Body extends Component {
         }
       });
   }
- 
+
+  pushPriceSum = (price, amount, toppingChoices, txtNote, sizeChoices,product_name) => {
+    let obj = {
+      product_name:product_name,
+      price: price,
+      amount: amount,
+      toppingChoices: toppingChoices,
+      txtNote: txtNote,
+      sizeChoices: sizeChoices,
+    };
+    let arr = [];
+    arr.push(obj);
+    this.setState({
+      listOrder:arr
+    })
+   
+  };
 
   render() {
-  
     return (
-      <div className="body" id="body" >
+      <div className="body" id="body">
         {this.state.loading ? (
           <PlacehoderLoading></PlacehoderLoading>
         ) : this.state.listCategory.length <= 0 ? (
@@ -99,23 +114,25 @@ class Body extends Component {
                   data={this.state.listCategory}
                   changeActive={this.changeActive}
                   active={this.state.active}
+                  //
                   getDataItem={this.getDataItem}
                 />
               </div>
               <div className="col-right">
-                <CartContainer />
+                <CartContainer listOrder={this.state.listOrder} />
               </div>
             </div>
           </div>
         )}
-        {this.state.layoutOrder ? (
+        {this.state.layoutOrder &&(
           <Order
             src={this.state.dataItem.image}
             product_name={this.state.dataItem.product_name}
             onClick={() => this.setState({ layoutOrder: false })}
             dataItem={this.state.dataItem}
+            pushPriceSum={this.pushPriceSum}
           />
-        ) : null}
+        ) }
       </div>
     );
   }

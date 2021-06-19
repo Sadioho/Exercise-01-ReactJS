@@ -57,7 +57,10 @@ class ProductContainer extends Component {
       )
     );
 
+    // console.log(dataProductFilter);
     let result = dataProductFilter.some((item) => item.length > 0);
+    // console.log(result);
+
     if (!result) {
       return (
         <div className="product-container">

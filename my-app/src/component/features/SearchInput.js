@@ -9,7 +9,7 @@ class SearchInput extends Component {
           placeholder={this.props.placeholder}
           onChange={this.props.handleChange} 
           value={this.props.value}
-        
+          id={this.props.id}
         />
     );
   }

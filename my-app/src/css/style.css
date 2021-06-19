@@ -82,6 +82,25 @@ li {
       display: flex;
       align-items: center; }
 
+.product__detail {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-top: 1px solid #999; }
+  .product__detail-amount {
+    flex-flow: 1;
+    background-color: #ea8025;
+    padding: 0rem 1rem;
+    margin-right: 1rem;
+    color: #fff; }
+  .product__detail-text {
+    flex-grow: 2; }
+  .product__detail-product_name {
+    font-weight: bold; }
+  .product__detail-size, .product__detail-topping, .product__detail-note {
+    font-size: 1.2rem; }
+
 .left-container {
   width: 30rem;
   font-size: 1.2rem;
