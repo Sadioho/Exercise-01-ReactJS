@@ -28,20 +28,22 @@ Bài tập 2:
 
 
 
+ 
 
-
-15.6
+15.6 Code Component Order
 - Ở file ProductContainer đưa window.addEventListener vào trong ComponentdidMount
 - Edit css none product bằng cách 
 	- Ở file ProductContainer
 	 B1: Tạo ra 1 mảng mới dataProduct
 	 B2: Map dữ liệu merge được Body truyền qua ProductContainer bằng props data
 	 	- Kiểm tra nếu như dữ liệu có listProduct.lenght > 0 thì push vào mảng  dataProduct 
-	 B3: Viết một hàm dataProductFilter 
-	 	- Map dataProduct=> filter item => kiểm tra product_name includes có trùng với data nhập vào không 
-	B4: Tạo một biến result để kiểm tra nếu khi dữ liệu nhập vào không có thỏa mảng thì resutl này sẽ trả về false 
-	- Khi result === false thì return cái hình k có sản phẩm ra 
-	- Khi result === true thì return ProductList ra 
+	 B3: Tạo 1 biến dataProductFilter
+	 	- Lưu dữ liệu tìm khi tìm kiếm nếu có giá trị tìm kiếm thì nó sẽ trả ra 1 mảng chứa các mảng có dữ liệu khi mình tìm kiếm
+	B4: Tạo một biến result 
+		- Dùng some để kiểm tra nếu trong dataProductFilter có item.lenght > 0 thì nó trả về true còn nếu k có item.lenght nào lớn hơn 0 thì trả về false
+	
+
+
 - Order 
 	B1: Code  component Order
 	B2: tạo hàm Contructor set các state 
@@ -62,4 +64,117 @@ Bài tập 2:
 		+ bắt sự kiện checked của radio size
 
 	B7: Cái price_sum hiển thị ra sẽ bằng với price_sum * amount
-	
+
+
+
+- Component Body
+	- Các state mới 
+		- dataItem : lưu dữ liệu của 1 product 
+		-layoutOrder: để xác định trạng thái hiển thị của component Order
+	- Các hàm mới
+		- getDataItem: 
+		 	+ nhận vào 1 đối số data là dữ liệu của 1 product khi click vào product đó
+			+ setState dataitem: data, layoutOrder: true -> hiển thị component Order
+	- Trong render return 
+		- Truyền props cho Order
+			 <Order
+            src={this.state.dataItem.image}
+            product_name={this.state.dataItem.product_name}
+            onClick={() => this.setState({ layoutOrder: false })}
+            dataItem={this.state.dataItem}
+            pushPriceSum={this.pushPriceSum}
+          />
+        - Truyền props mới cho ProductContainer
+		<ProductContainer
+                getDataItem={this.getDataItem}
+    	 />
+		- ProductContainer đẩy props qua component ProductList nhận props getDataItem
+		- Ở component ProductList dùng onClick để gọi props getDataItem truyền vào tham số là dữ liệu của product đó
+
+- Ở component Order
+	- Các state
+		size: chứa giá trị size đầu tiên trong mảng variants
+		price_sum: chứa giá trị price đầu tiên trong mảng variants
+		topping: chứa nội dung topping
+		mount: chứa số lượng
+	- Các function
+		getSize: nhận vào 2 đối số size price để set lại giá trị size và price_sum
+		getCheck: nhận vào 1 đối số data là giá trị trong topping_list của product hiện tại khi click vào
+			- Get element với ID bằng data.code
+			- kiểm tra element đó có checked hay không 
+			- Nếu checked true thì 
+				+ setState price_sum = price_sum now + data.price
+				+ setState topping = topping hiện tại nối thêm tên topping [data.product_name]
+			- Nếu checked false
+				+ setState price_sum = price_sum now - data.price
+				+ setState topping = topping hiện tại replace tên topping [data.product_name] bằng " "
+		plusAmount: dùng để setState amount + thêm 1 
+		minusAmount: dùng để setState amount - đi 1
+		componentDidMount : querySelector input có name='vehicle1' sau đó kiểm tra nếu khác null thì setAttribute checked để cho nó checked lần đầu tiên khi chạy
+	- Trong render 
+		- Nhận được Props dataItem để hiển thị thông tin sản phẩm đang order 
+
+17.18- Code ShipNow 
+
+- Ở component Header
+	- Tạo ra các state
+		- openDropDownTime dùng để giữ trạng thái hiển thị hoặc k hiển thị của component ShipNow
+		- textBtnShipNow : dùng để lưu nội dung "Ngày và giờ giao hàng"
+		- timeNow: dùng để lưu thời gian hiện tại
+		- dateNow: dùng để lưu ngày/tháng/năm hiện tại
+		- dataDate: dùng để lưu dữ liệu ngày/tháng/năm hiện tại và 2 ngày tiếp theo
+		- dateTime: dùng để lưu dữ liệu thời gian hiện tại cho đến thời gian đóng cửa
+		- dateTimeDefault: dùng để lưu dữ liệu thời gian mặc định từ 7h30 đến 20h30
+		- this.container=react.createRef() : dùng để tương tác với sự kiện
+
+	- Các hàm : 
+		handleOpenDropDown: dùng để xác định trạng thái mở hay đóng của openDropDownTime khi Click vào button giao Ngay
+		handleClickOutside : dùng để bắt sự kiện khi mousedown thì nó sẽ set lại trạng thái của openDropDownTime đóng lại
+		pushDataDate: dùng để set dữ liệu dataDate [Bao gồm ngày hiện tại, và 2 ngày tiếp theo]
+		pushDataTime: dùng để set dữ liệu dateTime 
+			- setTimeStart: Bằng giờ hiện tại, phút hiện tại cộng thêm + 60 - phút hiện tại 
+			- setTimeEnd : bằng 20:30
+			- Dùng vòng for chạy từ timeStart đến khi timeStart bé hơn hoặc bằng timeEnd và rồi phút setTimeStart + thêm 15
+			- Rồi push timeStart vào một mảng sau đó set state dataTime bằng mảng đó
+		setDateTimeDefault: tương tự như pushDataTime
+		setTextBtnShipNow: dùng để nhận lại date,time từ ShipNow truyền qua
+			- Nếu time === timeNow và date === dateNowNo set state textBtnShipNow bằng text GIAO NGAY
+			- Ngược lại set state textBtnShipNow bằng date,time từ ShipNow trả về
+		setOpenDropDownTime : dùng để bắt sự kiện Click khi mà click vào nút Giao Ngay thì set trạng thái openDropDownTime tắt đi và textBtnShipNow bằng text GIAO NGAY
+
+		componentDidMount : 
+			- Gọi hàm setDateTimeDefault() cho chạy lần đầu tiên 
+			- Gọi hàm pushDataDate() chạy lần đầu tiên
+			- Bắt sự kiện mousedown gọi tới handleClickOutside để set trạng thái cho openDropDownTime
+			- Set dữ liệu cho timeNow, dateNow
+		componentWillUnmount: 
+			- remove sự kiện mousedown 
+
+		return: 
+			- Truyền props cho ShipNow
+			 <ShipNow
+                    setTextBtnShipNow={this.setTextBtnShipNow}
+                    textBtnShipNow={this.state.textBtnShipNow}
+                    dateNow={this.state.dateNow}
+                    timeNow={this.state.timeNow}
+                    dataDate={this.state.dataDate}
+                    dataTime={this.state.dataTime}
+                    pushDataTime={this.pushDataTime}
+                    dateTimeDefault={this.state.dateTimeDefault}
+                    setOpenDropDownTime={this.setOpenDropDownTime}
+                  />
+- Tạo Component ShipNow
+	- Code tĩnh 
+	- Đẩy dữ liệu từ header qua
+		- Tạo các state 
+			open : dùng để giữ trạng thái hiển thị hoặc đóng của phần thời gian đặt hàng
+			dateSelect: dùng để giữ giá trị ngày khi select option ngày
+			active: dùng để giữ trạng thái active cho 2 nút GIAO NGAY, THỜI GIAN ĐẶT HÀNG
+		- Các hàm
+			handleTimerOrder: gọi hàm pushDataTime, setState open thành true để hiển DropDown THỜI GIAN ĐẶT HÀNG
+			clickTimer: dùng để lấy giá trị date và time khi click nút HẸN GIỜ NGAY
+				- Gọi tới hàm setTextBtnShipNow truyền vào giá trị date và time đã được lấy từ 2 select date và time 
+				- Nếu như date và time ở 2 select bằng với dateNow và timeNow set open thành false đóng DROPDOWN THỜI GIAN ĐẶT HÀNG LẠI
+				- Set active bằng true để active vào phần GIAO NGAY
+			getSelect: dùng để lấy giá trị date khi onChange select date và set state  dateSelect
+			getShipNow: dùng để gọi đến hàm setOpenDropDownTime
