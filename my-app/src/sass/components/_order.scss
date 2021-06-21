@@ -27,6 +27,7 @@
     display: flex;
     padding: 1rem 0;
     position: relative;
+    border-bottom: 1px solid rgb(172, 172, 172);
     &_text {
       h4 {
         font-size: 1.5rem;
@@ -34,8 +35,7 @@
     }
   }
   .body_order {
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid rgb(172, 172, 172);
 
     &_text {
       padding: 1rem 0;
@@ -58,10 +58,10 @@
     }
   }
   .search-input {
-    margin: 2rem 0rem 1rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgb(172, 172, 172);
   }
   .footer_order_button {
-    border-top: 1px solid grey;
     padding: 1rem 0;
     display: flex;
     justify-content: space-between;
@@ -74,23 +74,21 @@
       }
     }
   }
-  .icon-close{
-      font-size: 2rem;
-      position: absolute;
-      right: 0;
-      top: 0;
-      cursor: pointer;
+  .icon-close {
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
   }
-  .radio_check{
+  .radio_check {
     display: flex;
     align-items: center;
-    label{
+    label {
       display: inline-block;
       margin-left: 1rem;
     }
   }
 }
 
-
 //custom radion , checkbox
-

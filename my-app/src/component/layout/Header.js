@@ -13,40 +13,70 @@ class Header extends React.Component {
       dataAddress: [],
       searchAddress: "",
       openDropDownTime: false,
+      openDropDownAddress: false,
       textBtnShipNow: "Giao Ngay",
-      timeNow: null, 
-      dateNow: null, 
-      dataDate: [], 
-      dataTime: [], 
+      timeNow: null,
+      dateNow: null,
+      dataDate: [],
+      dataTime: [],
       dateTimeDefault: [],
     };
     this.container = React.createRef();
+    this.forcus = React.createRef();
   }
 
   handleChangeAddress = (e) => {
-    this.setState({ searchAddress: e.target.value, dataAddress: [] });
+    this.setState({
+      searchAddress: e.target.value,
+      dataAddress: [],
+      openDropDownAddress: true,
+    });
     this.Address(e);
   };
 
   handleOnclick = (value) => {
     this.setState({
       searchAddress: value,
+      openDropDownAddress:false
     });
   };
- 
+
   Address = (e) => {
     fetch(
-      `https://order.thecoffeehouse.com/api/location?address=${e.target.value}`
+      `https://api.thecoffeehouse.com/api/v5/map/autocomplete?key=${e.target.value}&from=TCH-WEB`,
+      {
+        headers: {
+          accept: "application/json, text/plain, */*",
+          "accept-language": "en-US,en;q=0.9,ja;q=0.8",
+          "cache-control": "no-cache",
+          pragma: "no-cache",
+          "sec-ch-ua":
+            '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
+          "sec-ch-ua-mobile": "?0",
+          "sec-fetch-dest": "empty",
+          "sec-fetch-mode": "cors",
+          "sec-fetch-site": "same-site",
+          "tch-app-version": "",
+          "tch-device-id": "",
+          "x-csrf-token": "XJVEF4AnLtZqcFJ87XeJaV1nJxGC5HrAkMy9QCHA",
+          "x-requested-with": "XMLHttpRequest",
+        },
+        referrer: "https://order.thecoffeehouse.com/",
+        referrerPolicy: "strict-origin-when-cross-origin",
+        body: null,
+        method: "GET",
+        mode: "cors",
+        credentials: "omit",
+      }
     )
       .then((res) => res.json())
       .then((dataAdd) => {
-        if (dataAdd.status === "OK") {
-          if (e.target.value.length > 3) {
-            this.setState({
-              dataAddress: dataAdd.predictions,
-            });
-          }
+        if (e.target.value.length > 3) {
+          this.setState({
+            dataAddress: dataAdd.addresses,
+          });
         }
+        // console.log(dataAdd);
       });
   };
 
@@ -56,6 +86,10 @@ class Header extends React.Component {
         openDropDownTime: !state.openDropDownTime,
       };
     });
+    this.setState({
+      openDropDownAddress:false
+    });
+
   };
 
   handleClickOutside = (event) => {
@@ -65,6 +99,7 @@ class Header extends React.Component {
     ) {
       this.setState({
         openDropDownTime: false,
+        openDropDownAddress: false,
       });
     }
   };
@@ -155,6 +190,13 @@ class Header extends React.Component {
     });
   };
 
+
+  handleForcus=()=>{
+    this.setState({
+      openDropDownAddress: true,
+      openDropDownTime:false
+    });
+  }
   componentDidMount() {
     this.setDateTimeDefault();
     this.pushDataDate();
@@ -173,9 +215,10 @@ class Header extends React.Component {
       dateNow: dateNow,
     });
   }
-  
+
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
+
   }
 
   render() {
@@ -190,6 +233,7 @@ class Header extends React.Component {
       openDropDownTime,
       searchAddress,
     } = this.state;
+
 
     return (
       <div className="header">
@@ -229,18 +273,22 @@ class Header extends React.Component {
                     className="size-lager input-focus"
                     handleChange={this.handleChangeAddress}
                     value={searchAddress}
+                    ref={this.forcus}
+                    onClick={this.handleForcus}
+
+                    
                   />
 
                   <div className="header__address ">
-                    {searchAddress.length !== 0 ? (
+                    {this.state.openDropDownAddress ? (
                       dataAddress.length > 0 ? (
-                        dataAddress.map((item) => (
+                        dataAddress.map((item, index) => (
                           <Address
-                            title={item.structured_formatting.main_text}
-                            description={item.description}
-                            key={item.id}
+                            key={index}
+                            title={item.title_address}
+                            description={item.full_address}
                             addressDesciption={() =>
-                              this.handleOnclick(item.description)
+                              this.handleOnclick(item.full_address)
                             }
                           />
                         ))

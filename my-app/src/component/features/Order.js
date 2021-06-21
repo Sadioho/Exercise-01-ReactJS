@@ -66,13 +66,20 @@ export default class Order extends Component {
       this.state.topping,
       txtNote,
       this.state.size,
-      this.props.product_name
+      this.props.product_name ,
+      this.props.dataItem
     );
+   
   };
+
+
+  //edit cart
+
+
 
   render() {
     let dataItem = this.props.dataItem;
-    console.log(this.state.topping.slice(0,-2));
+    // console.log(this.state.topping.slice(0,-2));
     return (
       <div>
         <div className="overlay" onClick={this.props.onClick}></div>
@@ -111,7 +118,7 @@ export default class Order extends Component {
             </div>
           </div>
 
-          {dataItem.topping_list.length !== 0 ? (
+          {dataItem.topping_list.length !== 0 && (
             <div className="body_order">
               <div className="body_order_text">
                 <h5>Topping</h5>
@@ -133,7 +140,7 @@ export default class Order extends Component {
                 ))}
               </div>
             </div>
-          ) : null}
+          ) }
 
           <div className="footer_order">
             <div className="search-input">

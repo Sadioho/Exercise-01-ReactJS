@@ -16,9 +16,9 @@ class Body extends Component {
       active: null,
       dataItem: null,
       layoutOrder: false,
-      listOrder: null,
+      listOrder: [],
     };
-  } 
+  }
 
   // active category
   changeActive = (id) => {
@@ -34,6 +34,9 @@ class Body extends Component {
       layoutOrder: true,
     });
   };
+
+
+ 
 
   // event ref
 
@@ -75,22 +78,60 @@ class Body extends Component {
       });
   }
 
-  pushPriceSum = (price, amount, toppingChoices, txtNote, sizeChoices,product_name) => {
+  pushPriceSum = (
+    price,
+    amount,
+    toppingChoices,
+    txtNote,
+    sizeChoices,
+    product_name,
+    item
+  ) => {
+    let listOrder = this.state.listOrder;
     let obj = {
-      product_name:product_name,
+      product_name: product_name,
       price: price,
       amount: amount,
       toppingChoices: toppingChoices,
       txtNote: txtNote,
       sizeChoices: sizeChoices,
+      product_item: item,
     };
-    let arr = [];
-    arr.push(obj);
+    let flag = 1;
+    if (listOrder.length === 0) {
+      this.setState({
+        listOrder: [...this.state.listOrder, obj],
+      });
+    } else {
+      listOrder.map((item) =>
+        item.product_name === product_name &&
+        item.toppingChoices === toppingChoices &&
+        item.sizeChoices === sizeChoices
+          ? ((item.amount += amount), (item.price += price), (flag *= -1))
+          : (flag *= 1)
+      );
+      if (flag === 1) {
+        this.setState({
+          listOrder: [...this.state.listOrder, obj],
+        });
+      }
+    }
     this.setState({
-      listOrder:arr
-    })
-   
+      layoutOrder: false,
+    });
   };
+//edit cart
+
+editDataProduct=(item)=>{
+  this.setState({
+    size: item.sizeChoices,
+    price_sum: item.price,
+    topping: item.toppingChoices,
+    amount: item.amount,
+    layoutOrder: true,
+  })
+  console.log("body",item);
+}
 
   render() {
     return (
@@ -114,25 +155,32 @@ class Body extends Component {
                   data={this.state.listCategory}
                   changeActive={this.changeActive}
                   active={this.state.active}
-                  //
+                 
                   getDataItem={this.getDataItem}
                 />
               </div>
               <div className="col-right">
-                <CartContainer listOrder={this.state.listOrder} />
+                <CartContainer 
+                listOrder={this.state.listOrder}    
+                
+                editDataProduct={this.editDataProduct}
+                
+                />
               </div>
             </div>
           </div>
         )}
-        {this.state.layoutOrder &&(
+        {this.state.layoutOrder && (
           <Order
             src={this.state.dataItem.image}
             product_name={this.state.dataItem.product_name}
             onClick={() => this.setState({ layoutOrder: false })}
             dataItem={this.state.dataItem}
             pushPriceSum={this.pushPriceSum}
+
+
           />
-        ) }
+        )}
       </div>
     );
   }

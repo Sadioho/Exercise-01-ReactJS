@@ -10,6 +10,8 @@ class SearchInput extends Component {
           onChange={this.props.handleChange} 
           value={this.props.value}
           id={this.props.id}
+          autoComplete="off"
+          onClick={this.props.onClick}
         />
     );
   }
