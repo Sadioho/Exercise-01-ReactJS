@@ -4,27 +4,23 @@ import Currency from "../common/Currency";
 import SearchInput from "./SearchInput";
 
 class CartContainer extends Component {
-  getDataCart=(item)=>{
-    this.props.editDataProduct(item)
-    console.log(item);
-  }
+  getDataCart = (item,index) => {
+    this.props.editDataProduct(item,index);
+  };
   render() {
     let { listOrder } = this.props;
     let totalPrice = 0;
     let totalAmount = 0;
-    let shipPrice=0;
+    let shipPrice = 0;
     listOrder.map(
-      (item) => (
-        (totalPrice += item.price) &&
-        (totalAmount += item.amount)
-        )
+      (item) => (totalPrice += item.price) && (totalAmount += item.amount)
     );
-    if(totalPrice > 50000){
-      shipPrice=0
-    }else{
-      shipPrice=10000;
+    if (totalPrice > 50000) {
+      shipPrice = 0;
+    } else {
+      shipPrice = 10000;
     }
-    
+
     return (
       <div className="coupon">
         <div className="coupon__header">
@@ -37,14 +33,35 @@ class CartContainer extends Component {
 
         {listOrder !== null &&
           listOrder.map((item, index) => (
-            <div className="product__detail" key={index} onClick={()=>this.getDataCart(item)}>
+            <div
+              className="product__detail"
+              key={index}
+              onClick={() => this.getDataCart(item,index)}
+            >
               <span className="product__detail-amount">{item.amount}</span>
               <div className="product__detail-text">
                 <p className="product__detail-product_name">
                   {item.product_name}
                 </p>
                 <p className="product__detail-size">
-                  {item.sizeChoices} {item.toppingChoices.slice(0,-2)}
+                  {item.product_item.variants.map(
+                    (i) =>
+                      i.code === item.sizeChoices && (
+                        <span key={i.code}>
+                          {i.val}
+                          {item.toppingChoices.length > 0 && "+"}
+                        </span>
+                      )
+                  )}
+
+                  <span>
+                    {item.product_item.topping_list.map((i, index) =>
+                      item.toppingChoices.includes(i.code)
+                        ? i.product_name +
+                          (index < item.toppingChoices.length - 1 ? "+" : "")
+                        : null
+                    )}
+                  </span>
                 </p>
                 <p className="product__detail-note">{item.txtNote}</p>
               </div>
@@ -73,7 +90,10 @@ class CartContainer extends Component {
 
         <div className="coupon__detail-currency">
           <p>Tổng cộng</p>
-          <Currency className="size-currency-2" price={totalPrice+shipPrice} />
+          <Currency
+            className="size-currency-2"
+            price={totalPrice + shipPrice}
+          />
         </div>
       </div>
     );

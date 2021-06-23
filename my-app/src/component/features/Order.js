@@ -4,14 +4,15 @@ import Image from "../common/Image";
 import BtnAdd from "../common/BtnAdd";
 import Btn from "../common/Btn";
 
-export default class Order extends Component { 
+export default class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      size: this.props.dataItem.variants[0].val,
-      price_sum: this.props.dataItem.variants[0].price,
-      topping: "",
-      amount: 1,
+      size: this.props.size,
+      price_sum: this.props.price_sum,
+      topping: this.props.topping,
+      amount: this.props.amount,
+      txtNote: this.props.txtNote,
     };
   }
 
@@ -23,18 +24,20 @@ export default class Order extends Component {
   };
 
   getCheck = (data) => {
-    let check = document.getElementById(data.code);
-    if (check.checked) {
-      this.setState({
-        price_sum: this.state.price_sum + data.price,
-        topping: this.state.topping.concat(` ${data.product_name} +`),
-      });
-    } else {
-      this.setState({
-        price_sum: this.state.price_sum - data.price,
-        topping: this.state.topping.replace(` ${data.product_name} +`, ""),
-      });
-    }
+    let coppyTopping = [...this.state.topping];
+    this.state.topping.includes(data.code)
+      ? (coppyTopping = this.state.topping.filter(
+          (item) => item !== data.code
+        )) &&
+        this.setState({
+          topping: coppyTopping,
+          price_sum: this.state.price_sum - data.price,
+        })
+      : coppyTopping.push(data.code) &&
+        this.setState({
+          topping: coppyTopping,
+          price_sum: this.state.price_sum + data.price,
+        });
   };
 
   plusAmount = () => {
@@ -51,35 +54,31 @@ export default class Order extends Component {
     }
   };
 
-  componentDidMount() {
-    let a = document.querySelector("input[name='vehicle1']");
-    if (a !== null) {
-      a.setAttribute("checked", "checked");
-    }
-  }
-
-  pushPriceSum = () => {
+  getDataProductOrder = () => {
     let txtNote = document.getElementById("form-order").value;
-    this.props.pushPriceSum(
+ 
+    this.props.getDataProductOrder(
       this.state.price_sum * this.state.amount,
       this.state.amount,
       this.state.topping,
       txtNote,
       this.state.size,
-      this.props.product_name ,
+      this.props.product_name,
       this.props.dataItem
     );
-   
   };
 
-
-  //edit cart
-
-
+  componentDidMount() {
+    if (this.state.size === null) {
+      let size = document.querySelector("input[checked]").getAttribute("id");
+      if (size != null) {
+        this.setState({ size: size });
+      }
+    }
+  }
 
   render() {
-    let dataItem = this.props.dataItem;
-    // console.log(this.state.topping.slice(0,-2));
+    let { dataItem } = this.props;
     return (
       <div>
         <div className="overlay" onClick={this.props.onClick}></div>
@@ -88,8 +87,22 @@ export default class Order extends Component {
             <Image className="product__item-img" src={this.props.src} />
             <div className="header_order_text">
               <h4>{this.props.product_name}</h4>
-              <h5>{this.state.size}</h5>
-              <h5>{this.state.topping.slice(0, -2)}</h5>
+
+              {dataItem.variants.map(
+                (item) =>
+                  item.code === this.state.size && (
+                    <h5 key={item.code}> {item.val} </h5>
+                  )
+              )}
+
+              <h5>
+                {dataItem.topping_list.map((item, index) =>
+                  this.state.topping.includes(item.code)
+                    ? item.product_name +
+                      (index < this.state.topping.length - 1 ? "+" : "")
+                    : null
+                )}
+              </h5>
             </div>
             <div className="icon-close" onClick={this.props.onClick}>
               <i className="fas fa-times"></i>
@@ -101,14 +114,17 @@ export default class Order extends Component {
               <h5>Size</h5>
             </div>
             <div className="check_size">
-              {dataItem.variants.map((item) => (
+              {dataItem.variants.map((item, index) => (
                 <div key={item.code} className="radio_check">
                   <input
+                    defaultChecked={
+                      this.state.size === item.code ? true : index === 0
+                    }
                     type="radio"
                     id={item.code}
                     name="vehicle1"
                     defaultValue={item.val}
-                    onClick={() => this.getSize(item.val, item.price)}
+                    onClick={() => this.getSize(item.code, item.price)}
                   />
                   <label htmlFor={item.code}>
                     {`${item.val} (${item.price - dataItem.variants[0].price})`}
@@ -127,6 +143,7 @@ export default class Order extends Component {
                 {dataItem.topping_list.map((item) => (
                   <div key={item.code} className="radio_check">
                     <input
+                      defaultChecked={this.state.topping.includes(item.code)}
                       type="checkbox"
                       id={item.code}
                       name={item.product_name}
@@ -140,7 +157,7 @@ export default class Order extends Component {
                 ))}
               </div>
             </div>
-          ) }
+          )}
 
           <div className="footer_order">
             <div className="search-input">
@@ -148,7 +165,7 @@ export default class Order extends Component {
               <SearchInput
                 type="text"
                 className="size-100"
-                placeholder="Ghi chú thêm"
+                placeholder={this.props.txtNote !== null && this.props.txtNote!=="" ? this.props.txtNote : "Ghi chú thêm" }
                 id="form-order"
               />
             </div>
@@ -165,7 +182,7 @@ export default class Order extends Component {
                   text={`Đặt hàng  ${
                     this.state.price_sum * this.state.amount
                   } đ`}
-                  onClick={this.pushPriceSum}
+                  onClick={this.getDataProductOrder}
                 />
               </div>
             </div>

@@ -12,7 +12,6 @@ class ProductContainer extends Component {
   }
 // Khi scroll active
   activeCategory= (data) => {
-    this.props.changeActive(data);
     let unActive = document.querySelectorAll(".active-1").length;
     if (unActive > 0) {
       document.querySelector(".active-1").classList.remove("active-1");
@@ -57,7 +56,7 @@ class ProductContainer extends Component {
       )
     );
 
-    // console.log(dataProductFilter);
+
     let result = dataProductFilter.some((item) => item.length > 0);
     // console.log(result);
 

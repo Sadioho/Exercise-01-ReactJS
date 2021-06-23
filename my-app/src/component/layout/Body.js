@@ -17,6 +17,13 @@ class Body extends Component {
       dataItem: null,
       layoutOrder: false,
       listOrder: [],
+
+      size: null,
+      price_sum: null,
+      topping: [],
+      amount: 1,
+      txtNote: null,
+      indexProductOrder: -1,
     };
   }
 
@@ -30,13 +37,15 @@ class Body extends Component {
   // get dataitem
   getDataItem = (data) => {
     this.setState({
+      price_sum: data.price,
+      size: null,
+      topping: [],
+      amount: 1,
       dataItem: data,
+      txtNote: null,
       layoutOrder: true,
     });
   };
-
-
- 
 
   // event ref
 
@@ -78,7 +87,7 @@ class Body extends Component {
       });
   }
 
-  pushPriceSum = (
+  getDataProductOrder = (
     price,
     amount,
     toppingChoices,
@@ -97,43 +106,64 @@ class Body extends Component {
       sizeChoices: sizeChoices,
       product_item: item,
     };
-    let flag = 1;
+
     if (listOrder.length === 0) {
       this.setState({
         listOrder: [...this.state.listOrder, obj],
       });
     } else {
-      listOrder.map((item) =>
-        item.product_name === product_name &&
-        item.toppingChoices === toppingChoices &&
-        item.sizeChoices === sizeChoices
-          ? ((item.amount += amount), (item.price += price), (flag *= -1))
-          : (flag *= 1)
-      );
-      if (flag === 1) {
-        this.setState({
-          listOrder: [...this.state.listOrder, obj],
-        });
+      if (this.state.indexProductOrder === -1) {
+        let flag = 1;
+        listOrder.map((item) =>
+          item.product_name === product_name &&
+          JSON.stringify(item.toppingChoices) === JSON.stringify(toppingChoices) &&
+          item.sizeChoices === sizeChoices 
+            ? ((item.amount += amount), (item.price += price), (flag *= -1))
+            : (flag *= 1)
+        );
+        if (flag === 1) {
+          this.setState({
+            listOrder: [...this.state.listOrder, obj],
+          });
+        }
+      } else {
+        listOrder.map((item, index) =>
+          item.product_name === product_name &&
+          index === this.state.indexProductOrder
+            ? ((item.amount = amount),
+              (item.price = price),
+              (item.sizeChoices = sizeChoices),
+              (item.toppingChoices = toppingChoices),
+              (item.txtNote=txtNote),
+              this.setState({
+                indexProductOrder:-1
+              })
+              )
+            : null
+        );
       }
     }
     this.setState({
       layoutOrder: false,
     });
   };
-//edit cart
+  //edit cart
 
-editDataProduct=(item)=>{
-  this.setState({
-    size: item.sizeChoices,
-    price_sum: item.price,
-    topping: item.toppingChoices,
-    amount: item.amount,
-    layoutOrder: true,
-  })
-  console.log("body",item);
-}
+  editDataProduct = (item, index) => {
+    this.setState({
+      dataItem: item.product_item,
+      layoutOrder: true,
+      size: item.sizeChoices,
+      price_sum: item.price / item.amount,
+      amount: item.amount,
+      topping: item.toppingChoices,
+      txtNote: item.txtNote,
+      indexProductOrder: index,
+    });
+  };
 
   render() {
+
     return (
       <div className="body" id="body">
         {this.state.loading ? (
@@ -155,16 +185,14 @@ editDataProduct=(item)=>{
                   data={this.state.listCategory}
                   changeActive={this.changeActive}
                   active={this.state.active}
-                 
                   getDataItem={this.getDataItem}
                 />
               </div>
               <div className="col-right">
-                <CartContainer 
-                listOrder={this.state.listOrder}    
-                
-                editDataProduct={this.editDataProduct}
-                
+                <CartContainer
+                  listOrder={this.state.listOrder}
+                  editDataProduct={this.editDataProduct}
+                  dataItem={this.state.dataItem}
                 />
               </div>
             </div>
@@ -176,9 +204,14 @@ editDataProduct=(item)=>{
             product_name={this.state.dataItem.product_name}
             onClick={() => this.setState({ layoutOrder: false })}
             dataItem={this.state.dataItem}
-            pushPriceSum={this.pushPriceSum}
-
-
+            getDataProductOrder={this.getDataProductOrder}
+            dataEdit={this.state.dataEdit}
+            //props
+            size={this.state.size}
+            price_sum={this.state.price_sum}
+            topping={this.state.topping}
+            amount={this.state.amount}
+            txtNote={this.state.txtNote}
           />
         )}
       </div>
