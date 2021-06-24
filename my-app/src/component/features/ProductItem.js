@@ -23,7 +23,7 @@ class ProductItem extends Component {
               {this.props.description}
             </p>
             <span className="product__item-price">
-              <Currency className="size-currency-1" price={this.props.price} />
+              <Currency className="size-currency-1" price={this.props.price.toLocaleString()} />
               <BtnAdd className="fas fa-plus"/>
             </span>
           </div>

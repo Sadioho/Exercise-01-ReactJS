@@ -4,118 +4,130 @@ import Image from "../common/Image";
 import BtnAdd from "../common/BtnAdd";
 import Btn from "../common/Btn";
 
-
 export default class Order extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      size: null,
-      price_sum: this.props.dataItem.variants[0].price,
-      topping: [],
-      amount: 1,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     size: null,
+  //     price_sum: this.props.dataItem.variants[0].price,
+  //     topping: [],
+  //     amount: 1,
+  //   };
+  // }
 
-  getSize = (size, price) => {
-    this.setState({
-      size: size,
-      price_sum: price,
-    });
-  };
+  // getSize = (size, price) => {
+  //   this.setState({
+  //     size: size,
+  //     price_sum: price,
+  //   });
+  // };
 
-  getCheck = (data) => {
-    // let check = document.getElementById(data.code);
-    let coppyTopping = [...this.state.topping];
+  // getCheck = (data) => {
+  //   // let check = document.getElementById(data.code);
+  //   let coppyTopping = [...this.state.topping];
 
-    this.state.topping.includes(data.code)
-    ? (coppyTopping = this.state.topping.filter(
-        (item) => item !== data.code
-      )) &&
-      this.setState({
-        topping: coppyTopping,
-        price_sum: this.state.price_sum - data.price,
-      })
-    : coppyTopping.push(data.code) &&
-      this.setState({
-        topping: coppyTopping,
-        price_sum: this.state.price_sum + data.price,
-  });
+  //   this.state.topping.includes(data.code)
+  //   ? (coppyTopping = this.state.topping.filter(
+  //       (item) => item !== data.code
+  //     )) &&
+  //     this.setState({
+  //       topping: coppyTopping,
+  //       price_sum: this.state.price_sum - data.price,
+  //     })
+  //   : coppyTopping.push(data.code) &&
+  //     this.setState({
+  //       topping: coppyTopping,
+  //       price_sum: this.state.price_sum + data.price,
+  // });
+  // };
 
+  // plusAmount = () => {
+  //   this.setState({
+  //     amount: this.state.amount + 1,
+  //   });
+  // };
 
-
-   
-  };
-
-  plusAmount = () => {
-    this.setState({
-      amount: this.state.amount + 1,
-    });
-  };
-
-  minusAmount = () => {
-    if (this.state.amount > 1) {
-      this.setState({
-        amount: this.state.amount - 1,
-      });
-    }
-  };
+  // minusAmount = () => {
+  //   if (this.state.amount > 1) {
+  //     this.setState({
+  //       amount: this.state.amount - 1,
+  //     });
+  //   }
+  // };
 
   componentDidMount() {
-    let a=document.querySelector("input[checked]").getAttribute("id");
-    if(a!==null){
-      this.setState({
-        size:a
-      })
+    // let a = document.querySelector("input[checked]").getAttribute("id");
+    // if (a !== null) {
+    //  this.props.getSize(a,this.props.price_new)
+    // }
+
+    if(this.props.sizeActive===null){
+      let a = document.querySelector("input[checked]").getAttribute("id");
+      if (a !== null) {
+       this.props.getSize(a,this.props.price_new)
+      }
     }
 
-    // if(this.state.amount!==null){
-    //   this.setState({
-    //     amount:1
-    //   })
-    // }
+    
   }
 
-  addToCartV2 = () => {
-    let txtNote = document.getElementById("form-order").value;
-    const objCart = {
-      ...this.props.dataItem,
-      price_sum: this.state.price_sum * this.state.amount,
-      amount: this.state.amount,
-      topping: this.state.topping,
-      txtNote: txtNote,
-      size: this.state.size,
-    };
-    this.props.addToCart(objCart);
-  };
+  // addToCartV2 = () => {
+  //   let txtNote = document.getElementById("form-order").value;
+  //   const objCart = {
+  //     ...this.props.dataItem,
+  //     price_sum: this.state.price_sum * this.state.amount,
+  //     amount: this.state.amount,
+  //     topping: this.state.topping,
+  //     txtNote: txtNote,
+  //     size: this.state.size,
+  //   };
+  //   this.props.addToCart(objCart);
+  // };
 
   //edit cart
 
   render() {
-    let dataItem = this.props.dataItem;
+    
+    let {
+      dataItem,
+      addToCartV2,
+      getSize,
+      getCheck,
+      plusAmount,
+      minusAmount,
+      sizeActive,
+      price_new,
+      toppingActive,
+      amount,
+      onClick,
+      src,
+      product_name,
+      
+    } = this.props;
+    // console.log(dataItem);
     return (
       <div>
-        <div className="overlay" onClick={this.props.onClick}></div>
+        <div className="overlay" onClick={onClick}></div>
         <div className="container_order">
           <div className="header_order">
-            <Image className="product__item-img" src={this.props.src} />
+            <Image className="product__item-img" src={src} />
             <div className="header_order_text">
-              <h4>{this.props.product_name}</h4>
+              <h4>{product_name}</h4>
               <h5>
-              {dataItem.variants.map(item=>
-                item.code===this.state.size && item.val
-                )}  
+                {dataItem.variants.map(
+                  (item) => item.code === sizeActive && item.val 
+                )}
               </h5>
               <h5>
-              
-              {dataItem.topping_list.map((item, index) =>
-                  this.state.topping.includes(item.code)
+                {dataItem.topping_list.map((item, index) =>
+                 toppingActive.includes(item.code)
                     ? item.product_name +
-                      (index < this.state.topping.length - 1 ? "+" : "")
+                      (index < toppingActive.length - 1 ? "+" : "")
                     : null
                 )}
               </h5>
             </div>
-            <div className="icon-close" onClick={this.props.onClick}>
+            <div className="icon-close" onClick={onClick}>
               <i className="fas fa-times"></i>
             </div>
           </div>
@@ -125,15 +137,17 @@ export default class Order extends Component {
               <h5>Size</h5>
             </div>
             <div className="check_size">
-              {dataItem.variants.map((item,index) => (
+              {dataItem.variants.map((item, index) => (
                 <div key={item.code} className="radio_check">
                   <input
-                    defaultChecked={this.state.size === item.code ? true : index===0}
+                    defaultChecked={
+                      sizeActive === item.code ? true : index === 0
+                    }
                     type="radio"
                     id={item.code}
                     name="vehicle1"
                     defaultValue={item.val}
-                    onClick={() => this.getSize(item.code, item.price)}
+                    onClick={() => getSize(item.code, item.price)}
                   />
                   <label htmlFor={item.code}>
                     {`${item.val} (${item.price - dataItem.variants[0].price})`}
@@ -152,12 +166,12 @@ export default class Order extends Component {
                 {dataItem.topping_list.map((item) => (
                   <div key={item.code} className="radio_check">
                     <input
-                     defaultChecked={this.state.topping.includes(item.code)}
+                      defaultChecked={toppingActive.includes(item.code)}
                       type="checkbox"
                       id={item.code}
                       name={item.product_name}
                       defaultValue={item.product_name}
-                      onClick={() => this.getCheck(item)}
+                      onClick={() => getCheck(item)}
                     />
                     <label htmlFor={item.code}>
                       {`${item.product_name} ( + ${item.price} ) `}
@@ -180,18 +194,18 @@ export default class Order extends Component {
             </div>
             <div className="footer_order_button">
               <div className="footer_order_button-amount">
-                <BtnAdd className="fa fa-minus" onClick={this.minusAmount} />
-                <h5>{this.state.amount}</h5>
-                <BtnAdd className="fa fa-plus" onClick={this.plusAmount} />
+                <BtnAdd className="fa fa-minus" onClick={minusAmount} />
+                <h5>{amount}</h5>
+                <BtnAdd className="fa fa-plus" onClick={plusAmount} />
               </div>
               <div className="footer_order_button-pay">
                 <Btn
                   className="btn-orange"
                   href="/#"
                   text={`Đặt hàng  ${
-                    this.state.price_sum * this.state.amount
+                  ( price_new * amount).toLocaleString()
                   } đ`}
-                  onClick={this.addToCartV2}
+                  onClick={addToCartV2}
                 />
               </div>
             </div>

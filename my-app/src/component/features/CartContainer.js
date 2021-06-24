@@ -4,8 +4,10 @@ import Currency from "../common/Currency";
 import SearchInput from "./SearchInput";
 
 class CartContainer extends Component {
-  getDataCart = (item) => {
-    this.props.editDataProduct(item);
+
+
+  getDataCart = (item, index) => {
+    this.props.editDataProduct(item, index);
   };
 
   render() {
@@ -14,7 +16,9 @@ class CartContainer extends Component {
     let totalAmount = 0;
     let shipPrice = 0;
     listOrder.map(
-      (item) => (totalPrice += item.price_sum) && (totalAmount += item.amount)
+      (item) => 
+      (totalPrice += item.price_sum) &&
+      (totalAmount += item.amount)
     );
     if (totalPrice > 50000) {
       shipPrice = 0;
@@ -37,7 +41,7 @@ class CartContainer extends Component {
             <div
               className="product__detail"
               key={index}
-              onClick={() => this.getDataCart(item)}
+              onClick={() => this.getDataCart(item, index)}
             >
               <span className="product__detail-amount">{item.amount}</span>
               <div className="product__detail-text">
@@ -47,35 +51,35 @@ class CartContainer extends Component {
                 <p className="product__detail-size">
                   {item.variants.map(
                     (i) =>
-                      i.code === item.size && (
+                      i.code === item.sizeActive && (
                         <span key={i.code}>
                           {i.val}
-                          {item.topping.length > 0 && "+"}
+                          {item.toppingActive.length > 0 && "+"}
                         </span>
                       )
                   )}
 
                   {item.topping_list.map((i, index) =>
-                    item.topping.includes(i.code)
+                    item.toppingActive.includes(i.code)
                       ? i.product_name +
-                        (index < item.topping.length - 1 ? "+" : "")
+                        (index < item.toppingActive.length - 1 ? "+" : "")
                       : null
                   )}
                 </p>
                 <p className="product__detail-note">{item.txtNote}</p>
               </div>
-              <Currency price={item.price_sum} />
+              <Currency price={item.price_sum.toLocaleString()} />
             </div>
           ))}
 
         <div className="coupon__detail">
           <div className="coupon__detail-currency">
             <p className="coupon__detail-sum">Cộng ({totalAmount} món)</p>
-            <Currency price={totalPrice} />
+            <Currency price={totalPrice.toLocaleString()} />
           </div>
           <div className="coupon__detail-currency">
             <p>Vận chuyển</p>
-            <Currency price={shipPrice} />
+            <Currency price={shipPrice.toLocaleString()} />
           </div>
           <form className="coupon__detail-sale">
             <SearchInput
@@ -91,7 +95,7 @@ class CartContainer extends Component {
           <p>Tổng cộng</p>
           <Currency
             className="size-currency-2"
-            price={totalPrice + shipPrice}
+            price={(totalPrice + shipPrice).toLocaleString()}
           />
         </div>
       </div>

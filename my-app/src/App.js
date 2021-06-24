@@ -7,15 +7,13 @@ import Footer from "./component/layout/Footer";
 class App extends Component {
   render() {
     return (
-      <div >
-        <Header/>
-        <Body/>        
-        <Footer/>        
+      <div>
+        <Header />
+        <Body />
+        <Footer />
       </div>
     );
   }
 }
 
 export default App;
-
-
