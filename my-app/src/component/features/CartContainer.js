@@ -4,16 +4,17 @@ import Currency from "../common/Currency";
 import SearchInput from "./SearchInput";
 
 class CartContainer extends Component {
-  getDataCart = (item,index) => {
-    this.props.editDataProduct(item,index);
+  getDataCart = (item) => {
+    this.props.editDataProduct(item);
   };
+
   render() {
     let { listOrder } = this.props;
     let totalPrice = 0;
     let totalAmount = 0;
     let shipPrice = 0;
     listOrder.map(
-      (item) => (totalPrice += item.price) && (totalAmount += item.amount)
+      (item) => (totalPrice += item.price_sum) && (totalAmount += item.amount)
     );
     if (totalPrice > 50000) {
       shipPrice = 0;
@@ -36,7 +37,7 @@ class CartContainer extends Component {
             <div
               className="product__detail"
               key={index}
-              onClick={() => this.getDataCart(item,index)}
+              onClick={() => this.getDataCart(item)}
             >
               <span className="product__detail-amount">{item.amount}</span>
               <div className="product__detail-text">
@@ -44,28 +45,26 @@ class CartContainer extends Component {
                   {item.product_name}
                 </p>
                 <p className="product__detail-size">
-                  {item.product_item.variants.map(
+                  {item.variants.map(
                     (i) =>
-                      i.code === item.sizeChoices && (
+                      i.code === item.size && (
                         <span key={i.code}>
                           {i.val}
-                          {item.toppingChoices.length > 0 && "+"}
+                          {item.topping.length > 0 && "+"}
                         </span>
                       )
                   )}
 
-                  <span>
-                    {item.product_item.topping_list.map((i, index) =>
-                      item.toppingChoices.includes(i.code)
-                        ? i.product_name +
-                          (index < item.toppingChoices.length - 1 ? "+" : "")
-                        : null
-                    )}
-                  </span>
+                  {item.topping_list.map((i, index) =>
+                    item.topping.includes(i.code)
+                      ? i.product_name +
+                        (index < item.topping.length - 1 ? "+" : "")
+                      : null
+                  )}
                 </p>
                 <p className="product__detail-note">{item.txtNote}</p>
               </div>
-              <Currency price={item.price} />
+              <Currency price={item.price_sum} />
             </div>
           ))}
 
