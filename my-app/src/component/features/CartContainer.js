@@ -4,23 +4,14 @@ import Currency from "../common/Currency";
 import SearchInput from "./SearchInput";
 
 class CartContainer extends Component {
-
-
   getDataCart = (item, index) => {
     this.props.editDataProduct(item, index);
   };
 
   render() {
     let { listOrder } = this.props;
-    let totalPrice = 0;
-    let totalAmount = 0;
     let shipPrice = 0;
-    listOrder.map(
-      (item) => 
-      (totalPrice += item.price_sum) &&
-      (totalAmount += item.amount)
-    );
-    if (totalPrice > 50000) {
+    if (this.props.totalPrice > 50000) {
       shipPrice = 0;
     } else {
       shipPrice = 10000;
@@ -74,8 +65,10 @@ class CartContainer extends Component {
 
         <div className="coupon__detail">
           <div className="coupon__detail-currency">
-            <p className="coupon__detail-sum">Cộng ({totalAmount} món)</p>
-            <Currency price={totalPrice.toLocaleString()} />
+            <p className="coupon__detail-sum">
+              Cộng ({this.props.totalAmount} món)
+            </p>
+            <Currency price={this.props.totalPrice.toLocaleString()} />
           </div>
           <div className="coupon__detail-currency">
             <p>Vận chuyển</p>
@@ -95,7 +88,7 @@ class CartContainer extends Component {
           <p>Tổng cộng</p>
           <Currency
             className="size-currency-2"
-            price={(totalPrice + shipPrice).toLocaleString()}
+            price={(this.props.totalPrice + shipPrice).toLocaleString()}
           />
         </div>
       </div>

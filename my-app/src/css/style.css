@@ -379,6 +379,19 @@ li {
       padding: .5rem; }
       .header__address-text p:first-child {
         text-transform: uppercase; }
+  .header .btn-login, .header .btn-login .total_cart {
+    display: flex;
+    align-items: center; }
+    .header .btn-login .total_cart {
+      margin: 0 5rem;
+      cursor: pointer; }
+    .header .btn-login .total_amount {
+      background-color: #ea8025;
+      display: inline-block;
+      padding: .5rem 1rem;
+      text-align: center;
+      border-radius: 50%;
+      color: #fff; }
 
 .input-focus:focus {
   border: 1px solid orangered; }

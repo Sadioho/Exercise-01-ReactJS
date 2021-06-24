@@ -71,16 +71,37 @@
         text-transform: uppercase;
       }
     }
+
+   
+  }
+  .btn-login{
+    display: flex;  
+    align-items: center;
+    
+    .total_cart{
+      @extend .btn-login;
+      margin: 0 5rem;
+      cursor: pointer;
+    }
+    .total_amount{
+      background-color: $color-primary;
+      display: inline-block;
+      padding: .5rem 1rem;
+      text-align: center;
+      border-radius: 50%;
+      color: $color-white;
+    
+    }
+    
   }
 }
+
 
 
 
 .input-focus:focus{
   border: 1px solid orangered;
 }
-
-
 
 
 //Delivery
@@ -129,3 +150,5 @@
 
   }
 }
+
+
