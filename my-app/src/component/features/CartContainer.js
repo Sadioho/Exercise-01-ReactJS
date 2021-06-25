@@ -5,6 +5,7 @@ import SearchInput from "./SearchInput";
 
 class CartContainer extends Component {
   getDataCart = (item, index) => {
+    console.log(item.txtNote);
     this.props.editDataProduct(item, index);
   };
 
@@ -59,7 +60,7 @@ class CartContainer extends Component {
                 </p>
                 <p className="product__detail-note">{item.txtNote}</p>
               </div>
-              <Currency price={item.price_sum.toLocaleString()} />
+              <Currency price={item.price_new.toLocaleString()} />
             </div>
           ))}
 

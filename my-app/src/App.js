@@ -7,23 +7,20 @@ import Footer from "./component/layout/Footer";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      totalAmount:0
-    }
+    this.state = {
+      totalAmount: 0,
+    };
   }
-  setTotalAmount=(data)=>{
+  setTotalAmount = (data) => {
     this.setState({
-      totalAmount:data
-    })
-  }
+      totalAmount: data,
+    });
+  };
   render() {
     return (
       <div>
-        <Header totalAmount={this.state.totalAmount}/>
-        <Body 
-        setTotalAmount={this.setTotalAmount}
-        
-        />
+        <Header totalAmount={this.state.totalAmount} />
+        <Body setTotalAmount={this.setTotalAmount} />
         <Footer />
       </div>
     );

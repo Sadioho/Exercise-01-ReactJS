@@ -14,6 +14,7 @@ class Body extends Component {
       loading: true,
       listCategory: [],
       active: null,
+
       dataItem: null,
       layoutOrder: false,
       listOrder: [],
@@ -21,9 +22,10 @@ class Body extends Component {
       price_new: null,
       toppingActive: [],
       amount: null,
+      txtNote: null,
       indexEdit: -1,
       totalAmount: 0,
-      totalPrice:0
+      totalPrice: 0,
     };
   }
 
@@ -70,57 +72,17 @@ class Body extends Component {
             });
         }
       });
+
+    if (
+      JSON.parse(localStorage.getItem("listOrder")) &&
+      JSON.parse(localStorage.getItem("listOrder")).length > 0
+    ) {
+      this.setState({
+        listOrder: JSON.parse(localStorage.getItem("listOrder")),
+      });
+      this.getTotalAmount(JSON.parse(localStorage.getItem("listOrder")));
+    }
   }
-  //totalAmount
-  getTotalAmount = (data) => {
-    let totalAmounts = 0;
-    let totalPrice=0;
-
-    data.map((item) => 
-    (totalAmounts += item.amount) && (totalPrice+=item.price_sum)
-    );
-    this.props.setTotalAmount(totalAmounts);
-    this.setState({
-      totalAmount: totalAmounts,
-      totalPrice: totalPrice
-    });
-  };
-  addToCart = (data) => {
-    let flag = 1;
-    let arrEdit = [...this.state.listOrder];
-    if (this.state.indexEdit !== -1) {
-      arrEdit = arrEdit.filter((item, index) => index !== this.state.indexEdit);
-    }
-    arrEdit.map((item) =>
-      item._id === data._id &&
-      item.sizeActive === data.sizeActive &&
-      JSON.stringify(item.toppingActive) ===
-        JSON.stringify(data.toppingActive) &&
-      item.txtNote === data.txtNote
-        ? ((item.amount += data.amount),
-          (item.price_sum += data.price_sum),
-          (flag *= -1))
-        : (flag *= 1)
-    );
-
-    if (flag === 1) {
-      this.setState({
-        listOrder: [...arrEdit, data].filter((item) => item.amount > 0),
-      });
-      this.getTotalAmount([...arrEdit, data].filter((item) => item.amount > 0));
-    } else {
-      this.setState({
-        listOrder: [...arrEdit],
-      });
-      this.getTotalAmount([...arrEdit]);
-    }
-
-    this.setState({
-      indexEdit: -1,
-      layoutOrder: false,
-    });
-  };
-
   // get dataitem
   getDataItem = (data) => {
     this.setState({
@@ -130,17 +92,6 @@ class Body extends Component {
       amount: 1,
       sizeActive: null,
       toppingActive: [],
-    });
-  };
-  editDataProduct = (item, index) => {
-    this.setState({
-      dataItem: item,
-      layoutOrder: true,
-      sizeActive: item.sizeActive,
-      price_sum: item.price,
-      toppingActive: item.toppingActive,
-      amount: item.amount,
-      indexEdit: index,
     });
   };
 
@@ -160,12 +111,12 @@ class Body extends Component {
         )) &&
         this.setState({
           toppingActive: coppyTopping,
-          price_sum: this.state.price_sum - data.price,
+          price_new: this.state.price_new - data.price,
         })
       : coppyTopping.push(data.code) &&
         this.setState({
           toppingActive: coppyTopping,
-          price_sum: this.state.price_sum + data.price,
+          price_new: this.state.price_new + data.price,
         });
   };
 
@@ -183,14 +134,90 @@ class Body extends Component {
     }
   };
 
+  setTxtNote = (data) => {
+    this.setState({
+      txtNote: data,
+    });
+  };
+
+  addToCart = (data) => {
+    let flag = 1;
+    let arrEdit = [...this.state.listOrder];
+    if (this.state.indexEdit !== -1) {
+      arrEdit = arrEdit.filter((item, index) => index !== this.state.indexEdit);
+    }
+    arrEdit.map((item) =>
+      item._id === data._id &&
+      item.sizeActive === data.sizeActive &&
+      JSON.stringify(item.toppingActive) ===
+        JSON.stringify(data.toppingActive) &&
+      item.txtNote === data.txtNote
+        ? ((item.amount += data.amount),
+          (item.price_new += data.price_new),
+          (flag *= -1))
+        : (flag *= 1)
+    );
+
+    if (flag === 1) {
+      this.setState({
+        listOrder: [...arrEdit, data].filter((item) => item.amount > 0),
+      });
+      this.getTotalAmount([...arrEdit, data].filter((item) => item.amount > 0));
+      localStorage.setItem(
+        "listOrder",
+        JSON.stringify([...arrEdit, data].filter((item) => item.amount > 0))
+      );
+    } else {
+      this.setState({
+        listOrder: [...arrEdit],
+      });
+      this.getTotalAmount([...arrEdit]);
+      localStorage.setItem("listOrder", JSON.stringify([...arrEdit]));
+    }
+
+    this.setState({
+      indexEdit: -1,
+      layoutOrder: false,
+    });
+  };
+  //totalAmount
+  getTotalAmount = (data) => {
+    let totalAmounts = 0;
+    let totalPrice = 0;
+    data.map(
+      (item) => (totalAmounts += item.amount) && (totalPrice += item.price_new)
+    );
+    this.props.setTotalAmount(totalAmounts);
+    this.setState({
+      totalAmount: totalAmounts,
+      totalPrice: totalPrice,
+    });
+  };
+
+  editDataProduct = (item, index) => {
+    this.setState({
+      dataItem: item,
+      layoutOrder: true,
+      sizeActive: item.sizeActive,
+      price_new: item.price_new / item.amount,
+      toppingActive: item.toppingActive,
+      amount: item.amount,
+      txtNote: item.txtNote,
+      indexEdit: index,
+    });
+  };
+
   addToCartV2 = () => {
     let txtNote = document.getElementById("form-order").value;
+    this.setState({
+      txtNote: txtNote,
+    });
     const objCart = {
       ...this.state.dataItem,
-      price_sum: this.state.price_new * this.state.amount,
+      price_new: this.state.price_new * this.state.amount,
       amount: this.state.amount,
       toppingActive: this.state.toppingActive,
-      txtNote: txtNote,
+      txtNote: this.state.txtNote,
       sizeActive: this.state.sizeActive,
     };
     this.addToCart(objCart);
@@ -243,6 +270,8 @@ class Body extends Component {
             getCheck={this.getCheck}
             plusAmount={this.plusAmount}
             minusAmount={this.minusAmount}
+            setTxtNote={this.setTxtNote}
+            txtNote={this.state.txtNote}
             sizeActive={this.state.sizeActive}
             price_new={this.state.price_new}
             toppingActive={this.state.toppingActive}

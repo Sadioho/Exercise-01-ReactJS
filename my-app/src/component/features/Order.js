@@ -5,89 +5,20 @@ import BtnAdd from "../common/BtnAdd";
 import Btn from "../common/Btn";
 
 export default class Order extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     size: null,
-  //     price_sum: this.props.dataItem.variants[0].price,
-  //     topping: [],
-  //     amount: 1,
-  //   };
-  // }
-
-  // getSize = (size, price) => {
-  //   this.setState({
-  //     size: size,
-  //     price_sum: price,
-  //   });
-  // };
-
-  // getCheck = (data) => {
-  //   // let check = document.getElementById(data.code);
-  //   let coppyTopping = [...this.state.topping];
-
-  //   this.state.topping.includes(data.code)
-  //   ? (coppyTopping = this.state.topping.filter(
-  //       (item) => item !== data.code
-  //     )) &&
-  //     this.setState({
-  //       topping: coppyTopping,
-  //       price_sum: this.state.price_sum - data.price,
-  //     })
-  //   : coppyTopping.push(data.code) &&
-  //     this.setState({
-  //       topping: coppyTopping,
-  //       price_sum: this.state.price_sum + data.price,
-  // });
-  // };
-
-  // plusAmount = () => {
-  //   this.setState({
-  //     amount: this.state.amount + 1,
-  //   });
-  // };
-
-  // minusAmount = () => {
-  //   if (this.state.amount > 1) {
-  //     this.setState({
-  //       amount: this.state.amount - 1,
-  //     });
-  //   }
-  // };
-
   componentDidMount() {
-    // let a = document.querySelector("input[checked]").getAttribute("id");
-    // if (a !== null) {
-    //  this.props.getSize(a,this.props.price_new)
-    // }
-
-    if(this.props.sizeActive===null){
+    if (this.props.sizeActive === null) {
       let a = document.querySelector("input[checked]").getAttribute("id");
       if (a !== null) {
-       this.props.getSize(a,this.props.price_new)
+        this.props.getSize(a, this.props.price_new);
       }
     }
-
-    
   }
 
-  // addToCartV2 = () => {
-  //   let txtNote = document.getElementById("form-order").value;
-  //   const objCart = {
-  //     ...this.props.dataItem,
-  //     price_sum: this.state.price_sum * this.state.amount,
-  //     amount: this.state.amount,
-  //     topping: this.state.topping,
-  //     txtNote: txtNote,
-  //     size: this.state.size,
-  //   };
-  //   this.props.addToCart(objCart);
-  // };
-
-  //edit cart
+  onChangeInput = (e) => {
+    this.props.setTxtNote(e.target.value);
+  };
 
   render() {
-    
     let {
       dataItem,
       addToCartV2,
@@ -99,12 +30,12 @@ export default class Order extends Component {
       price_new,
       toppingActive,
       amount,
+      txtNote,
       onClick,
       src,
       product_name,
-      
     } = this.props;
-    // console.log(dataItem);
+
     return (
       <div>
         <div className="overlay" onClick={onClick}></div>
@@ -115,12 +46,12 @@ export default class Order extends Component {
               <h4>{product_name}</h4>
               <h5>
                 {dataItem.variants.map(
-                  (item) => item.code === sizeActive && item.val 
+                  (item) => item.code === sizeActive && item.val
                 )}
               </h5>
               <h5>
                 {dataItem.topping_list.map((item, index) =>
-                 toppingActive.includes(item.code)
+                  toppingActive.includes(item.code)
                     ? item.product_name +
                       (index < toppingActive.length - 1 ? "+" : "")
                     : null
@@ -189,7 +120,9 @@ export default class Order extends Component {
                 type="text"
                 className="size-100"
                 placeholder="Ghi chú thêm"
+                value={txtNote}
                 id="form-order"
+                handleChange={this.onChangeInput}
               />
             </div>
             <div className="footer_order_button">
@@ -202,9 +135,7 @@ export default class Order extends Component {
                 <Btn
                   className="btn-orange"
                   href="/#"
-                  text={`Đặt hàng  ${
-                  ( price_new * amount).toLocaleString()
-                  } đ`}
+                  text={`Đặt hàng  ${(price_new * amount).toLocaleString()} đ`}
                   onClick={addToCartV2}
                 />
               </div>
