@@ -22,16 +22,23 @@ class Header extends React.Component {
       dateTimeDefault: [],
     };
     this.container = React.createRef();
-    this.forcus = React.createRef();
+    this.findAddress = React.createRef();
   }
 
+  // debounes
   handleChangeAddress = (e) => {
+    if (this.findAddress.current) {
+      clearTimeout(this.findAddress.current);
+    }
+    this.findAddress.current = setTimeout(() => {
+      this.Address(e.target.value);
+    }, 400);
+
     this.setState({
       searchAddress: e.target.value,
       dataAddress: [],
       openDropDownAddress: true,
     });
-    this.Address(e);
   };
 
   handleOnclick = (value) => {
@@ -43,7 +50,7 @@ class Header extends React.Component {
 
   Address = (e) => {
     fetch(
-      `https://api.thecoffeehouse.com/api/v5/map/autocomplete?key=${e.target.value}&from=TCH-WEB`,
+      `https://api.thecoffeehouse.com/api/v5/map/autocomplete?key=${e}&from=TCH-WEB`,
       {
         headers: {
           accept: "application/json, text/plain, */*",
@@ -71,7 +78,7 @@ class Header extends React.Component {
     )
       .then((res) => res.json())
       .then((dataAdd) => {
-        if (e.target.value.length > 3) {
+        if (e.length > 3) {
           this.setState({
             dataAddress: dataAdd.addresses,
           });
@@ -269,7 +276,7 @@ class Header extends React.Component {
                     className="size-lager input-focus"
                     handleChange={this.handleChangeAddress}
                     value={searchAddress}
-                    ref={this.forcus}
+                    ref={this.findAddress}
                     onClick={this.handleForcus}
                   />
 
@@ -296,26 +303,25 @@ class Header extends React.Component {
             </div>
             <div className="col btn-login">
               <Btn href="/#" text="Đăng nhập"></Btn>
-            {this.props.totalAmount > 0 && 
-              <div className="total_cart">
-              <p className="total_amount">{this.props.totalAmount}</p>
-              <svg
-                width={24}
-                height={24}
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="7.3" cy="17.3" r="1.4" />
-                <circle cx="13.3" cy="17.3" r="1.4" />
-                <polyline
-                  fill="none"
-                  stroke="#000"
-                  points="0 2 3.2 4 5.3 12.5 16 12.5 18 6.5 8 6.5"
-                />
-              </svg>
-            </div>
-            
-            }
+              {this.props.totalAmount > 0 && (
+                <div className="total_cart">
+                  <p className="total_amount">{this.props.totalAmount}</p>
+                  <svg
+                    width={24}
+                    height={24}
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="7.3" cy="17.3" r="1.4" />
+                    <circle cx="13.3" cy="17.3" r="1.4" />
+                    <polyline
+                      fill="none"
+                      stroke="#000"
+                      points="0 2 3.2 4 5.3 12.5 16 12.5 18 6.5 8 6.5"
+                    />
+                  </svg>
+                </div>
+              )}
             </div>
           </div>
         </div>

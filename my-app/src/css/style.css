@@ -373,10 +373,10 @@ li {
       .header__address-content:hover {
         background: #dfdfdf; }
     .header__address-icon {
-      padding: .5rem; }
+      padding: 0.5rem; }
     .header__address-text {
       flex-grow: 2;
-      padding: .5rem; }
+      padding: 0.5rem; }
       .header__address-text p:first-child {
         text-transform: uppercase; }
   .header .btn-login, .header .btn-login .total_cart {
@@ -388,7 +388,7 @@ li {
     .header .btn-login .total_amount {
       background-color: #ea8025;
       display: inline-block;
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
       text-align: center;
       border-radius: 50%;
       color: #fff; }
@@ -407,13 +407,13 @@ li {
     padding: 1rem 1rem;
     display: flex;
     align-items: center;
-    cursor: pointer; }
+    cursor: pointer;
+    text-transform: uppercase; }
+    .delivery__button:hover {
+      background-color: whitesmoke; }
     .delivery__button:not(:last-child) {
       border-bottom: 1px solid #999;
-      opacity: .5;
       text-transform: uppercase; }
-      .delivery__button:not(:last-child):hover {
-        opacity: 1; }
   .delivery__icon {
     font-size: 2.5rem;
     margin-right: 1rem; }

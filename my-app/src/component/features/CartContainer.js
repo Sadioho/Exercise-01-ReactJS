@@ -5,7 +5,7 @@ import SearchInput from "./SearchInput";
 
 class CartContainer extends Component {
   getDataCart = (item, index) => {
-    console.log(item.txtNote);
+    // console.log(item.txtNote);
     this.props.editDataProduct(item, index);
   };
 

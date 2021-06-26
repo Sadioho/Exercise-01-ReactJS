@@ -120,7 +120,7 @@ export default class Order extends Component {
                 type="text"
                 className="size-100"
                 placeholder="Ghi chú thêm"
-                value={txtNote}
+                value={txtNote || ""}
                 id="form-order"
                 handleChange={this.onChangeInput}
               />

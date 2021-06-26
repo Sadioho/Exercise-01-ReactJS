@@ -28,11 +28,15 @@ export default class ShipNow extends Component {
     ) {
       this.setState({
         open: false,
+        active:false
+      });
+    } else {
+      this.setState({
+        active: true,
       });
     }
-    this.setState({
-      active: true,
-    });
+
+
   };
 
   getSelect = () => {
@@ -69,7 +73,7 @@ export default class ShipNow extends Component {
                 points="4,10 8,15 17,4"
               />
             </svg>
-          )} 
+          )}
         </div>
         <div className={`delivery__button`} onClick={this.handleTimerOrder}>
           <i className=" delivery__icon far fa-calendar"></i>

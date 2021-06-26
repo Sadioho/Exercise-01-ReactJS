@@ -92,6 +92,7 @@ class Body extends Component {
       amount: 1,
       sizeActive: null,
       toppingActive: [],
+      txtNote:null
     });
   };
 
@@ -197,13 +198,14 @@ class Body extends Component {
   editDataProduct = (item, index) => {
     this.setState({
       dataItem: item,
-      layoutOrder: true,
       sizeActive: item.sizeActive,
       price_new: item.price_new / item.amount,
       toppingActive: item.toppingActive,
       amount: item.amount,
       txtNote: item.txtNote,
       indexEdit: index,
+      layoutOrder: true,
+
     });
   };
 
