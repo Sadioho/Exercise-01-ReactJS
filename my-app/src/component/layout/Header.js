@@ -132,13 +132,48 @@ class Header extends React.Component {
     let timeStart = new Date();
     let timeEnd = new Date();
     let arrTime = [];
-    timeStart.setMinutes(timeStart.getMinutes() + 60 - timeStart.getMinutes());
+
+    // timeStart.setMinutes(timeStart.getMinutes() + 60 - timeStart.getMinutes());
+
+    if (timeStart.getMinutes() < 15) {
+      timeStart.setMinutes(
+        timeStart.getMinutes() - timeStart.getMinutes() + 45
+      );
+    } else if (timeStart.getMinutes() < 30) {
+      timeStart.setMinutes(
+        timeStart.getMinutes() - timeStart.getMinutes() + 60
+      );
+    } else {
+      timeStart.setMinutes(
+        timeStart.getMinutes() - timeStart.getMinutes() + 75
+      );
+    }
+
     timeEnd.setHours(20);
     timeEnd.setMinutes(30);
+
+    let timeBetween = new Date();
+    timeBetween.setMinutes(
+      timeBetween.getMinutes() - timeBetween.getMinutes() + 150
+    );
+
     for (
       timeStart;
-      timeStart <= timeEnd;
+      timeStart < timeBetween;
       timeStart.setMinutes(timeStart.getMinutes() + 15)
+    ) {
+      arrTime.push(
+        timeStart.toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      );
+    }
+
+    for (
+      timeStart.setMinutes(30);
+      timeStart <= timeEnd;
+      timeStart.setMinutes(timeStart.getMinutes() + 30)
     ) {
       arrTime.push(
         timeStart.toLocaleTimeString("en-GB", {
