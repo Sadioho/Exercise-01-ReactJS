@@ -6,6 +6,10 @@ import SearchInput from "../features/SearchInput";
 import Address from "../common/Address";
 import ShipNow from "../features/ShipNow";
 
+import {
+  Link
+} from "react-router-dom";
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -279,7 +283,7 @@ class Header extends React.Component {
           <div className="row">
             <div className="col">
               <div className="header__logo">
-                <img src={logo} alt="LOGO" />
+               <Link to="/"> <img src={logo} alt="LOGO" /></Link>
               </div>
             </div>
             <div className="col">
@@ -337,7 +341,7 @@ class Header extends React.Component {
               </div>
             </div>
             <div className="col btn-login">
-              <Btn href="/#" text="Đăng nhập"></Btn>
+              <Link to="/login"><Btn text="Đăng nhập"></Btn></Link>
               {this.props.totalAmount > 0 && (
                 <div className="total_cart">
                   <p className="total_amount">{this.props.totalAmount}</p>

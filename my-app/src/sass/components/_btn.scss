@@ -1,33 +1,32 @@
-.btn{
+.btn {
   position: relative;
-}
-.btn:link,
-.btn:visited {
+  background-color: unset;
+  // border: unset;
+  outline: unset;
   padding: 1rem 3rem;
-  
+
   text-transform: uppercase;
 
   border: 1px solid $color-grey-dark;
 
-  transition: border .5s;
- 
-}
-.btn:active,
-.btn:hover {
-  border: 1px solid $color-grey-light;
+  transition: border 0.5s;
+  cursor: pointer;
 }
 
-.btn-orange{
-    background-color: $color-primary;
-    font-weight: bold;
-    color: $color-white;
-   
+.btn-orange {
+  background-color: $color-primary;
+  font-weight: bold;
+  color: $color-white;
 }
 
-.btn-size-lager{
- display: block;
- text-align: center;
-
+.btn-size-lager {
+  display: block;
+  text-align: center;
+  width: 100%;
 }
 
-
+.btn-size-medium {
+  width: 40%;
+  display: inline-block;
+  text-align: center;
+}

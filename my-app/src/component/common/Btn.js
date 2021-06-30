@@ -4,9 +4,13 @@ import React, { Component } from "react";
 class Btn extends Component {
   render() {
     return (
-      <a href="/#" className={`btn ${this.props.className}`}  onClick={this.props.onClick}>
-             {this.props.text}
-      </a>
+      <button
+        className={`btn ${this.props.className}`}
+        onClick={this.props.onClick}
+        disabled={this.props.disabled}
+      >
+        {this.props.text}
+      </button>
     );
   }
 }

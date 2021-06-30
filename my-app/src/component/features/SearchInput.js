@@ -12,6 +12,8 @@ class SearchInput extends Component {
           id={this.props.id}
           autoComplete="off"
           onClick={this.props.onClick}
+          min={this.props.min}
+          onKeyDown={this.props.onKeyDown}
         />
     );
   }
