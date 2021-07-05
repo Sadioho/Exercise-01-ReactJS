@@ -92,7 +92,7 @@ class Body extends Component {
       amount: 1,
       sizeActive: null,
       toppingActive: [],
-      txtNote:null
+      txtNote: null,
     });
   };
 
@@ -205,7 +205,6 @@ class Body extends Component {
       txtNote: item.txtNote,
       indexEdit: index,
       layoutOrder: true,
-
     });
   };
 

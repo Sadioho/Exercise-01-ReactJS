@@ -13,7 +13,7 @@ export default class Order extends Component {
       }
     }
   }
-
+ 
   onChangeInput = (e) => {
     this.props.setTxtNote(e.target.value);
   };

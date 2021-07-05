@@ -108,3 +108,20 @@
 .active-blue{
   color: deepskyblue;
 }
+.check_login{
+  display: flex;
+  justify-content: space-between;
+  #recaptcha{
+    flex-grow: 4;
+  }
+  .code_OTP{
+    flex-grow: 1;
+    background-color: blueviolet;
+    display: flex;
+    input{
+      width: 100%;
+      padding: .8rem;
+      outline: none;
+    }
+  }
+}

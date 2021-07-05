@@ -137,8 +137,6 @@ class Header extends React.Component {
     let timeEnd = new Date();
     let arrTime = [];
 
-    // timeStart.setMinutes(timeStart.getMinutes() + 60 - timeStart.getMinutes());
-
     if (timeStart.getMinutes() < 15) {
       timeStart.setMinutes(
         timeStart.getMinutes() - timeStart.getMinutes() + 45
@@ -285,7 +283,7 @@ class Header extends React.Component {
               <div className="header__logo">
                <Link to="/"> <img src={logo} alt="LOGO" /></Link>
               </div>
-            </div>
+            </div> 
             <div className="col">
               <div className="header__form" ref={this.container}>
                 <Btn

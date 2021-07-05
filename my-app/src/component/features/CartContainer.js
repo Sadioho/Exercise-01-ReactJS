@@ -43,7 +43,7 @@ class CartContainer extends Component {
                 <p className="product__detail-size">
                   {item.variants.map(
                     (i) =>
-                      i.code === item.sizeActive && (
+                      i.code === item.sizeActive && ( 
                         <span key={i.code}>
                           {i.val}
                           {item.toppingActive.length > 0 && "+"}

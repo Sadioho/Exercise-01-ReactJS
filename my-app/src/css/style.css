@@ -508,6 +508,20 @@ li {
 .active-blue {
   color: deepskyblue; }
 
+.check_login {
+  display: flex;
+  justify-content: space-between; }
+  .check_login #recaptcha {
+    flex-grow: 4; }
+  .check_login .code_OTP {
+    flex-grow: 1;
+    background-color: blueviolet;
+    display: flex; }
+    .check_login .code_OTP input {
+      width: 100%;
+      padding: .8rem;
+      outline: none; }
+
 .container-full {
   position: relative; }
 

@@ -4,7 +4,7 @@ import Body from "./component/layout/Body";
 import Footer from "./component/layout/Footer";
 import Login from "./component/layout/Login";
 // import PlacehoderLoading from "./component/placehoders/PlacehoderLoading";
-
+// import firebase from 'firebase'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
@@ -14,11 +14,13 @@ class App extends Component {
       totalAmount: 0,
     };
   }
+
   setTotalAmount = (data) => {
     this.setState({
       totalAmount: data,
     });
   };
+
   render() {
     return (
       <Router>
@@ -28,10 +30,11 @@ class App extends Component {
           <Route
             path="/"
             exact
-            render={() => <Body setTotalAmount={this.setTotalAmount}></Body>}
+            render={(props) => (
+              <Body setTotalAmount={this.setTotalAmount} {...props}></Body>
+            )}
           ></Route>
-          <Route path="/login">
-            <Login></Login>
+          <Route path="/login" render={(props)=> <Login {...props}/>}>
           </Route>
           <Footer />
         </div>
