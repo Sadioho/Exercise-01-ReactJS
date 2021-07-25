@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import error from "../../image/search.png";
 import ProductList from "./ProductList";
-import SearchInput from "./SearchInput";
+import SearchInput from "../common/SearchInput";
 
 class ProductContainer extends Component {
   constructor(props) {

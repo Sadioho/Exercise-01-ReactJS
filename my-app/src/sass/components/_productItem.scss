@@ -2,6 +2,9 @@
 .product {
   margin-bottom: 1rem;
   cursor: pointer;
+  &__detail{
+    cursor: pointer;
+  }
   &__item {
     display: flex;
 

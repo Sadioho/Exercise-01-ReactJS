@@ -206,6 +206,8 @@ li {
 .product {
   margin-bottom: 1rem;
   cursor: pointer; }
+  .product__detail {
+    cursor: pointer; }
   .product__item {
     display: flex;
     background-color: #fff;

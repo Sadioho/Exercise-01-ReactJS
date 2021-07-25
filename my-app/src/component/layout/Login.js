@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Btn from "../common/Btn";
 import Country from "../../image/country.png";
-import SearchInput from "../features/SearchInput";
+import SearchInput from "../common/SearchInput";
 import firebase from "./firebase";
 import {db,auth} from './firebase'
 

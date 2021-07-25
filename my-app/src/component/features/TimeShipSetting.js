@@ -1,42 +1,51 @@
 import React, { Component } from "react";
 import Btn from "../common/Btn";
-
+import { currentDate, currentTime, timeDefault } from "../Helpers";
+import UserContext from "../Helpers/UserContext";
+ 
 export default class ShipNow extends Component {
+  static contextType=UserContext;
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      openTimeOrder: false,
       dateSelect: null,
       active: false,
     };
-  }
+    this.container = React.createRef();
 
+  }
   handleTimerOrder = () => {
-    this.props.pushDataTime();
     this.setState({
-      open: true,
+      openTimeOrder: !this.state.openTimeOrder, 
     });
   };
-
+  handleClickOutside = (event) => {
+    if (
+      this.container.current &&
+      !this.container.current.contains(event.target)
+    ) {
+     this.props.setOpenDrownTime()
+    }
+    console.log("time",event.target);
+  };
   clickTimer = () => {
     let elementDate = document.getElementById("date");
     let elementTime = document.getElementById("time");
-    this.props.setTextBtnShipNow(elementDate.value, elementTime.value);
-    if (
-      elementDate.value === this.props.dateNow &&
-      elementTime.value === this.props.timeNow
-    ) {
+    this.context.setTimeSetting(elementDate.value,elementTime.value);
+    if(
+      elementTime.value===this.context.timeNow 
+      && elementDate.value===this.context.dateNow
+    ){
       this.setState({
-        open: false,
         active:false
-      });
-    } else {
+      })
+    }else{
       this.setState({
-        active: true,
-      });
+        openTimeOrder:false,
+        active:true
+      })
     }
-
-
   };
 
   getSelect = () => {
@@ -47,19 +56,30 @@ export default class ShipNow extends Component {
   };
 
   getShipNow = () => {
-    this.props.setOpenDropDownTime();
-    console.log(this.props.timeNow, this.props.dateNow);
+    this.props.setOpenDrownTime()
+    this.context.setTimeSetting(this.context.dateNow, this.context.timeNow)
+    
   };
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
 
   render() {
-    let { dataDate, dataTime, dateNow, timeNow, dateTimeDefault } = this.props;
-    let { active, dateSelect, open } = this.state;
+    let { active, dateSelect, openTimeOrder } = this.state;
+    const dataDate = currentDate();
+    const dataTime = currentTime();
+    const dateTimeDefault=timeDefault()
+    
     return (
-      <div className="delivery">
+      <div className="delivery" ref={this.container}>
         <div className="delivery__button" onClick={this.getShipNow}>
           <i className=" delivery__icon far fa-clock"></i>
           <span>GIAO NGAY</span>
-          {active === false && (
+          {!active && (
             <svg
               width={20}
               height={20}
@@ -94,16 +114,19 @@ export default class ShipNow extends Component {
             </svg>
           )}
         </div>
-        {open && (
+        {openTimeOrder && (
           <div className="delivery__dropdown">
             <div className="delivery__dropdown-item">
               <label htmlFor="date">Ngày đặt</label>
               <select name="date" id="date" onChange={this.getSelect}>
                 {dataDate.map((item, index) =>
-                  item === dateNow ? (
+               
+                  item === this.context.dateNow ? (
                     dataTime.length !== 0 && (
+                   
                       <option key={index} value={item}>
                         HÔM NAY
+                   
                       </option>
                     )
                   ) : (
@@ -118,11 +141,11 @@ export default class ShipNow extends Component {
             <div className="delivery__dropdown-item">
               <label htmlFor="time">Thời gian đặt</label>
               <select name="time" id="time">
-                {dateSelect === null || dateSelect === dateNow ? (
+                {dateSelect === null || dateSelect === this.context.dateNow ? (
                   <>
                     {dataTime.length !== 0 ? (
                       <>
-                        <option value={timeNow}>GIAO 15-30 PHÚT</option>
+                        <option value={this.context.timeNow}>GIAO 15-30 PHÚT</option>
                         {dataTime.map((item, index) => (
                           <option key={index} value={item}>
                             {item}

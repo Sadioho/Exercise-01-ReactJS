@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SearchInput from "./SearchInput";
+import SearchInput from "../common/SearchInput";
 import Image from "../common/Image";
 import BtnAdd from "../common/BtnAdd";
 import Btn from "../common/Btn";

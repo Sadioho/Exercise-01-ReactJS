@@ -1,16 +1,16 @@
 import React from "react";
-import logo from "../../image/logo.png";
+import { Link } from "react-router-dom";
 import location from "../../image/location.png";
+import logo from "../../image/logo.png";
 import Btn from "../common/Btn";
-import SearchInput from "../features/SearchInput";
-import Address from "../common/Address";
-import ShipNow from "../features/ShipNow";
-
-import {
-  Link
-} from "react-router-dom";
+import SearchInput from "../common/SearchInput";
+import SearchAddress from "../features/SearchAddress";
+import TimeShipSetting from "../features/TimeShipSetting";
+import UserContext from "../Helpers/UserContext";
 
 class Header extends React.Component {
+  static contextType = UserContext;
+  //this.context
   constructor(props) {
     super(props);
     this.state = {
@@ -18,37 +18,23 @@ class Header extends React.Component {
       searchAddress: "",
       openDropDownTime: false,
       openDropDownAddress: false,
-      textBtnShipNow: "Giao Ngay",
-      timeNow: null,
-      dateNow: null,
-      dataDate: [],
-      dataTime: [],
-      dateTimeDefault: [],
     };
-    this.container = React.createRef();
-    this.findAddress = React.createRef();
   }
 
   // debounes
   handleChangeAddress = (e) => {
-    if (this.findAddress.current) {
-      clearTimeout(this.findAddress.current);
-    }
-    this.findAddress.current = setTimeout(() => {
-      this.Address(e.target.value);
-    }, 400);
+    // if (this.findAddress.current) {
+    //   clearTimeout(this.findAddress.current);
+    // }
+    // this.findAddress.current = setTimeout(() => {
+    //   this.Address(e.target.value);
+    // }, 400);
 
+    this.Address(e.target.value);
     this.setState({
       searchAddress: e.target.value,
       dataAddress: [],
       openDropDownAddress: true,
-    });
-  };
-
-  handleOnclick = (value) => {
-    this.setState({
-      searchAddress: value,
-      openDropDownAddress: false,
     });
   };
 
@@ -92,188 +78,37 @@ class Header extends React.Component {
   };
 
   handleOpenDropDown = () => {
-    this.setState((state) => {
-      return {
-        openDropDownTime: !state.openDropDownTime,
-      };
-    });
     this.setState({
+      openDropDownTime: true,
+    });
+  };
+
+  setOpenDrownTime = () => {
+    this.setState({
+      openDropDownTime: false,
+    });
+  };
+
+  handleFocus = () => {
+    this.setState({
+      openDropDownAddress: true,
+    });
+  };
+  handleOnclick = (value) => {
+    this.setState({
+      searchAddress: value,
       openDropDownAddress: false,
     });
   };
 
-  handleClickOutside = (event) => {
-    if (
-      this.container.current &&
-      !this.container.current.contains(event.target)
-    ) {
-      this.setState({
-        openDropDownTime: false,
-        openDropDownAddress: false,
-      });
-    }
-  };
-
-  pushDataDate = () => {
-    let arr = [];
-    let dayNow = new Date();
-    let nextDay = new Date();
-    for (let i = 0; i < 3; i++) {
-      nextDay.setDate(dayNow.getDate() + i);
-      arr.push(
-        nextDay.toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "2-digit",
-        })
-      );
-    }
+  //closeAddrewss
+  closeAddress = () => {
     this.setState({
-      dataDate: arr,
+      openDropDownAddress: false,
     });
   };
-
-  pushDataTime = () => {
-    let timeStart = new Date();
-    let timeEnd = new Date();
-    let arrTime = [];
-
-    if (timeStart.getMinutes() < 15) {
-      timeStart.setMinutes(
-        timeStart.getMinutes() - timeStart.getMinutes() + 45
-      );
-    } else if (timeStart.getMinutes() < 30) {
-      timeStart.setMinutes(
-        timeStart.getMinutes() - timeStart.getMinutes() + 60
-      );
-    } else {
-      timeStart.setMinutes(
-        timeStart.getMinutes() - timeStart.getMinutes() + 75
-      );
-    }
-
-    timeEnd.setHours(20);
-    timeEnd.setMinutes(30);
-
-    let timeBetween = new Date();
-    timeBetween.setMinutes(
-      timeBetween.getMinutes() - timeBetween.getMinutes() + 150
-    );
-
-    for (
-      timeStart;
-      timeStart < timeBetween;
-      timeStart.setMinutes(timeStart.getMinutes() + 15)
-    ) {
-      arrTime.push(
-        timeStart.toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
-    }
-
-    for (
-      timeStart.setMinutes(30);
-      timeStart <= timeEnd;
-      timeStart.setMinutes(timeStart.getMinutes() + 30)
-    ) {
-      arrTime.push(
-        timeStart.toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
-    }
-    this.setState({
-      dataTime: arrTime,
-    });
-  };
-
-  setTextBtnShipNow = (date, time) => {
-    if (time === this.state.timeNow && date === this.state.dateNow) {
-      this.setState({
-        textBtnShipNow: "GIAO NGAY",
-      });
-    } else {
-      this.setState({
-        textBtnShipNow: `${date}  ${time}`,
-      });
-    }
-  };
-
-  setDateTimeDefault = () => {
-    let timeStart = new Date();
-    let timeEnd = new Date();
-    let arrTime = [];
-    timeEnd.setHours(20);
-    timeEnd.setMinutes(30);
-    timeStart.setHours(7);
-    timeStart.setMinutes(30);
-    for (
-      timeStart;
-      timeStart <= timeEnd;
-      timeStart.setMinutes(timeStart.getMinutes() + 30)
-    ) {
-      arrTime.push(
-        timeStart.toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
-    }
-    this.setState({
-      dateTimeDefault: arrTime,
-    });
-  };
-
-  setOpenDropDownTime = () => {
-    this.setState({
-      openDropDownTime: false,
-      textBtnShipNow: "GIAO NGAY",
-    });
-  };
-
-  handleForcus = () => {
-    this.setState({
-      openDropDownAddress: true,
-      openDropDownTime: false,
-    });
-  };
-  componentDidMount() {
-    this.setDateTimeDefault();
-    this.pushDataDate();
-    document.addEventListener("mousedown", this.handleClickOutside);
-    let dateTime = new Date();
-    let time = dateTime.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    let dateNow = dateTime.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-    });
-    this.setState({
-      timeNow: time,
-      dateNow: dateNow,
-    });
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
   render() {
-    let {
-      dataAddress,
-      timeNow,
-      textBtnShipNow,
-      dateNow,
-      dataDate,
-      dataTime,
-      dateTimeDefault,
-      openDropDownTime,
-      searchAddress,
-    } = this.state;
+    let { dataAddress, openDropDownTime, searchAddress } = this.state;
 
     return (
       <div className="header">
@@ -281,28 +116,20 @@ class Header extends React.Component {
           <div className="row">
             <div className="col">
               <div className="header__logo">
-               <Link to="/"> <img src={logo} alt="LOGO" /></Link>
+                <Link to="/">
+                  <img src={logo} alt="LOGO" />
+                </Link>
               </div>
-            </div> 
+            </div>
             <div className="col">
-              <div className="header__form" ref={this.container}>
+              <div className="header__form">
                 <Btn
                   className="button"
                   onClick={this.handleOpenDropDown}
-                  text={textBtnShipNow}
+                  text={this.context.timeSetting}
                 />
                 {openDropDownTime && (
-                  <ShipNow
-                    setTextBtnShipNow={this.setTextBtnShipNow}
-                    textBtnShipNow={textBtnShipNow}
-                    dateNow={dateNow}
-                    timeNow={timeNow}
-                    dataDate={dataDate}
-                    dataTime={dataTime}
-                    pushDataTime={this.pushDataTime}
-                    dateTimeDefault={dateTimeDefault}
-                    setOpenDropDownTime={this.setOpenDropDownTime}
-                  />
+                  <TimeShipSetting setOpenDrownTime={this.setOpenDrownTime} />
                 )}
 
                 <div className="header__input">
@@ -313,33 +140,22 @@ class Header extends React.Component {
                     className="size-lager input-focus"
                     handleChange={this.handleChangeAddress}
                     value={searchAddress}
-                    ref={this.findAddress}
-                    onClick={this.handleForcus}
+                    onClick={this.handleFocus}
                   />
-
-                  <div className="header__address ">
-                    {this.state.openDropDownAddress ? (
-                      dataAddress.length > 0 ? (
-                        dataAddress.map((item, index) => (
-                          <Address
-                            key={index}
-                            title={item.title_address}
-                            description={item.full_address}
-                            addressDesciption={() =>
-                              this.handleOnclick(item.full_address)
-                            }
-                          />
-                        ))
-                      ) : (
-                        <Address description="Không có dữ liệu" />
-                      )
-                    ) : null}
-                  </div>
+                  {this.state.openDropDownAddress && (
+                    <SearchAddress
+                      closeAddress={this.closeAddress}
+                      handleOnclick={this.handleOnclick}
+                      dataAddress={this.state.dataAddress}
+                    />
+                  )}
                 </div>
               </div>
             </div>
             <div className="col btn-login">
-              <Link to="/login"><Btn text="Đăng nhập"></Btn></Link>
+              <Link to="/login">
+                <Btn text="Đăng nhập"></Btn>
+              </Link>
               {this.props.totalAmount > 0 && (
                 <div className="total_cart">
                   <p className="total_amount">{this.props.totalAmount}</p>
