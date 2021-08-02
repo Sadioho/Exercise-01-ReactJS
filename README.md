@@ -134,7 +134,7 @@
 
 - Chú thích update code 2 tuần vừa qua.
 
-17.18- Code ShipNow 
+### 17.18/6 2021 Code ShipNow 
 - Ở component Header
 	- Tạo ra các state
 		- `openDropDownTime` dùng để giữ trạng thái hiển thị hoặc k hiển thị của `component ShipNow`
@@ -207,7 +207,7 @@
 			`getShipNow`: dùng để gọi đến hàm `setOpenDropDownTime`
 
 
- ### 21-24/6-2021 Coder Add To Cart 
+### 21-24/6-2021 Coder Add To Cart 
  - Ở `component App`
 	- Các `state` 
 		`totalAmount`: lưu tổng số sản phẩm add vào `Cart`
@@ -421,5 +421,7 @@
 		+ Chưa tối ưu được code 
 		
 	
+
+
 
 
