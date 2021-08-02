@@ -432,6 +432,9 @@ li {
         padding: 1rem 2rem;
         outline: none; }
 
+.body {
+  overflow: hidden; }
+
 .login {
   padding: 7rem;
   height: 100vh; }

@@ -82,7 +82,10 @@ class Body extends Component {
       });
       this.getTotalAmount(JSON.parse(localStorage.getItem("listOrder")));
     }
+
+ 
   }
+
   // get dataitem
   getDataItem = (data) => {
     this.setState({
@@ -94,6 +97,8 @@ class Body extends Component {
       toppingActive: [],
       txtNote: null,
     });
+     document.body.classList.add("body");
+
   };
 
   // orderqua
@@ -180,6 +185,8 @@ class Body extends Component {
       indexEdit: -1,
       layoutOrder: false,
     });
+    document.body.classList.remove("body");
+
   };
   //totalAmount
   getTotalAmount = (data) => {
@@ -224,6 +231,12 @@ class Body extends Component {
     this.addToCart(objCart);
   };
 
+  onClickOutSide=() =>{
+    this.setState({ layoutOrder: false, indexEdit: -1 }) 
+    document.body.classList.remove("body");
+
+  }
+
   render() {
     return (
       <div className="body" id="body">
@@ -264,7 +277,8 @@ class Body extends Component {
           <Order
             src={this.state.dataItem.image}
             product_name={this.state.dataItem.product_name}
-            onClick={() => this.setState({ layoutOrder: false, indexEdit: -1 })}
+     
+            onClick={this.onClickOutSide}
             dataItem={this.state.dataItem}
             addToCartV2={this.addToCartV2}
             getSize={this.getSize}
