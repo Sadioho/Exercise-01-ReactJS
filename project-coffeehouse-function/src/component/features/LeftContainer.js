@@ -11,7 +11,7 @@ class LeftContainer extends Component {
           active={this.props.active}
         /> 
       </div>
-    );
+    ); 
   }
 }
 export default LeftContainer;

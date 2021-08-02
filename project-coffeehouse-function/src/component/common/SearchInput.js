@@ -1,21 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 
-class SearchInput extends Component {
-  render() {
-    return (
-        <input
-          className={`search__input ${this.props.className}`}
-          type={this.props.type}
-          placeholder={this.props.placeholder}
-          onChange={this.props.handleChange} 
-          value={this.props.value}
-          id={this.props.id}
-          autoComplete="off"
-          onClick={this.props.onClick}
-          min={this.props.min}
-          onKeyDown={this.props.onKeyDown}
-        />
-    );
-  }
-}
+const SearchInput = ({ ...props }) => {
+  return (
+    <input
+      className={`search__input ${props.className}`}
+      type={props.type}
+      placeholder={props.placeholder}
+      onChange={props.handleChange}
+      value={props.value}
+      id={props.id}
+      autoComplete="off"
+      onClick={props.onClick}
+      min={props.min}
+      onKeyDown={props.onKeyDown}
+    />
+  );
+};
+
 export default SearchInput;

@@ -1,13 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Currency extends Component {
-  render() {
-    return (
-      <p className={`currency ${this.props.className}`}>
-        {this.props.price} <span className="text-underline  ">đ</span>
-      </p>
-    );
-  }
-}
-
+const Currency = ({ ...props }) => {
+  return (
+    <p className={`currency ${props.className}`}>
+      {props.price} <span className="text-underline  ">đ</span>
+    </p>
+  );
+};
 export default Currency;

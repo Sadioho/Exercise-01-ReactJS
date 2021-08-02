@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class BtnAdd extends Component {
-  render() {
-    return <button className="btnAdd" onClick={this.props.onClick}>
-      <i className={this.props.className}></i>
-    </button>;
-  }
+function BtnAdd({ ...props }) {
+  return (
+    <button className="btnAdd" onClick={props.onClick}>
+      <i className={props.className}></i>
+    </button>
+  );
 }
+
+export default BtnAdd;
