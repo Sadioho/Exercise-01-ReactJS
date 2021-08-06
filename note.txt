@@ -302,6 +302,6 @@ Bài tập 2:
 		[Nhưng đã tìm tòi và tạm xử lý được, mà không biết xử lý như vậy có được không.]
 		+ Chưa tối ưu được code 
 		
-	
+	....
 
 
