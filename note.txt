@@ -42,7 +42,7 @@ Bài tập 2:
 		- dateTime: dùng để lưu dữ liệu thời gian hiện tại cho đến thời gian đóng cửa
 		- dateTimeDefault: dùng để lưu dữ liệu thời gian mặc định từ 7h30 đến 20h30
 		- this.container=react.createRef() : dùng để bắt sự kiện 
-    	- this.findAddress = React.createRef(): dùng để bắt sự kiện onChange 
+    	- this.findAddress = React.createRef(): dùng để bắt sự kiện onChange bbb
 		
 
 	- Các hàm : 
