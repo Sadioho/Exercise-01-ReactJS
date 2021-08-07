@@ -1,17 +1,18 @@
-import React, { Component } from "react";
+
 import CategoryList from "./CategoryList";
 
-class LeftContainer extends Component {
-  render() {
-    return (
-      <div className="left-container"> 
-        <CategoryList
-          dataCategoryList={this.props.dataLeft}
-          changeActive={this.props.changeActive}
-          active={this.props.active}
-        /> 
-      </div>
-    ); 
-  }
+import React from 'react'
+
+const LeftContainer = ({ ...props }) => {
+  return (
+    <div className="left-container">
+      <CategoryList
+        dataCategoryList={props.dataLeft}
+        changeActive={props.changeActive}
+        active={props.active}
+      />
+    </div>
+  )
 }
-export default LeftContainer;
+
+export default LeftContainer
