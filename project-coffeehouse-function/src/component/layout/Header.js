@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import location from "../../image/location.png";
 import logo from "../../image/logo.png";
@@ -8,37 +8,21 @@ import SearchAddress from "../features/SearchAddress";
 import TimeShipSetting from "../features/TimeShipSetting";
 import UserContext from "../Helpers/UserContext";
 
-class Header extends React.Component {
-  static contextType = UserContext;
-  //this.context
-  constructor(props) {
-    super(props);
-    this.state = {
-      dataAddress: [],
-      searchAddress: "",
-      openDropDownTime: false,
-      openDropDownAddress: false,
-    };
-  }
+const Header = ({ ...props }) => {
+  const [dataAddress, setdataAddress] = useState([]);
+  const [searchAddress, setsearchAddress] = useState("");
+  const [openDropDownTime, setopenDropDownTime] = useState(false);
+  const [openDropDownAddress, setopenDropDownAddress] = useState(false);
+  const contextType = useContext(UserContext);
 
-  // debounes
-  handleChangeAddress = (e) => {
-    // if (this.findAddress.current) {
-    //   clearTimeout(this.findAddress.current);
-    // }
-    // this.findAddress.current = setTimeout(() => {
-    //   this.Address(e.target.value);
-    // }, 400);
-
-    this.Address(e.target.value);
-    this.setState({
-      searchAddress: e.target.value,
-      dataAddress: [],
-      openDropDownAddress: true,
-    });
+  const handleOnclick = (value) => {
+    setsearchAddress(value);
+    setopenDropDownAddress(false);
   };
-
-  Address = (e) => {
+  const setOpenDrownTimeV2 = () => {
+    setopenDropDownTime(false);
+  };
+  const Address = (e) => {
     fetch(
       `https://api.thecoffeehouse.com/api/v5/map/autocomplete?key=${e}&from=TCH-WEB`,
       {
@@ -77,110 +61,84 @@ class Header extends React.Component {
       });
   };
 
-  handleOpenDropDown = () => {
-    this.setState({
-      openDropDownTime: true,
-    });
+  // debounes
+  const handleChangeAddress = (e) => {
+    Address(e.target.value);
+    setsearchAddress(e.target.value);
+    setdataAddress([]);
+    setopenDropDownAddress(true);
   };
 
-  setOpenDrownTime = () => {
-    this.setState({
-      openDropDownTime: false,
-    });
-  };
-
-  handleFocus = () => {
-    this.setState({
-      openDropDownAddress: true,
-    });
-  };
-  handleOnclick = (value) => {
-    this.setState({
-      searchAddress: value,
-      openDropDownAddress: false,
-    });
-  };
-
-  //closeAddrewss
-  closeAddress = () => {
-    this.setState({
-      openDropDownAddress: false,
-    });
-  };
-  render() {
-    let { dataAddress, openDropDownTime, searchAddress } = this.state;
-
-    return (
-      <div className="header">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col">
-              <div className="header__logo">
-                <Link to="/">
-                  <img src={logo} alt="LOGO" />
-                </Link>
-              </div>
-            </div>
-            <div className="col">
-              <div className="header__form">
-                <Btn
-                  className="button"
-                  onClick={this.handleOpenDropDown}
-                  text={this.context.timeSetting}
-                />
-                {openDropDownTime && (
-                  <TimeShipSetting setOpenDrownTime={this.setOpenDrownTime} />
-                )}
-
-                <div className="header__input">
-                  <img alt="#" className="header__icon" src={location} />
-                  <SearchInput
-                    placeholder="Nhập địa chỉ giao hàng"
-                    type="text"
-                    className="size-lager input-focus"
-                    handleChange={this.handleChangeAddress}
-                    value={searchAddress}
-                    onClick={this.handleFocus}
-                  />
-                  {this.state.openDropDownAddress && (
-                    <SearchAddress
-                      closeAddress={this.closeAddress}
-                      handleOnclick={this.handleOnclick}
-                      dataAddress={this.state.dataAddress}
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="col btn-login">
-              <Link to="/login">
-                <Btn text="Đăng nhập"></Btn>
+  return (
+    <div className="header">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <div className="header__logo">
+              <Link to="/">
+                <img src={logo} alt="LOGO" />
               </Link>
-              {this.props.totalAmount > 0 && (
-                <div className="total_cart">
-                  <p className="total_amount">{this.props.totalAmount}</p>
-                  <svg
-                    width={24}
-                    height={24}
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle cx="7.3" cy="17.3" r="1.4" />
-                    <circle cx="13.3" cy="17.3" r="1.4" />
-                    <polyline
-                      fill="none"
-                      stroke="#000"
-                      points="0 2 3.2 4 5.3 12.5 16 12.5 18 6.5 8 6.5"
-                    />
-                  </svg>
-                </div>
-              )}
             </div>
+          </div>
+          <div className="col">
+            <div className="header__form">
+              <Btn
+                className="button"
+                onClick={() => setopenDropDownTime(true)}
+                text={contextType.timeSetting}
+              />
+              {openDropDownTime && (
+                <TimeShipSetting setOpenDrownTime={setOpenDrownTimeV2} />
+              )}
+
+              <div className="header__input">
+                <img alt="#" className="header__icon" src={location} />
+                <SearchInput
+                  placeholder="Nhập địa chỉ giao hàng"
+                  type="text"
+                  className="size-lager input-focus"
+                  handleChange={handleChangeAddress}
+                  value={searchAddress}
+                  onClick={() => setopenDropDownAddress(true)}
+                />
+                {openDropDownAddress && (
+                  <SearchAddress
+                    closeAddress={setopenDropDownAddress(false)}
+                    handleOnclick={handleOnclick}
+                    dataAddress={dataAddress}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="col btn-login">
+            <Link to="/login">
+              <Btn text="Đăng nhập"></Btn>
+            </Link>
+            {props.totalAmount > 0 && (
+              <div className="total_cart">
+                <p className="total_amount">{props.totalAmount}</p>
+                <svg
+                  width={24}
+                  height={24}
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="7.3" cy="17.3" r="1.4" />
+                  <circle cx="13.3" cy="17.3" r="1.4" />
+                  <polyline
+                    fill="none"
+                    stroke="#000"
+                    points="0 2 3.2 4 5.3 12.5 16 12.5 18 6.5 8 6.5"
+                  />
+                </svg>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Header;

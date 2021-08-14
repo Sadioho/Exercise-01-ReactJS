@@ -1,156 +1,71 @@
-import React, { Component } from "react";
-import LeftContainer from "../features/LeftContainer";
-import ProductContainer from "../features/ProductContainer";
+import React, { useEffect, useState } from "react";
 import CartContainer from "../features/CartContainer";
-import PlacehoderLoading from "../placehoders/PlacehoderLoading";
-import NoneData from "../placehoders/NoneData";
+import LeftContainer from "../features/LeftContainer";
 import Order from "../features/Order";
+import ProductContainer from "../features/ProductContainer";
+import NoneData from "../placehoders/NoneData";
+import PlacehoderLoading from "../placehoders/PlacehoderLoading";
 
-class Body extends Component {
-  constructor(props) {
-    super(props);
-    this.container = React.createRef();
-    this.state = {
-      loading: true,
-      listCategory: [],
-      active: null,
+const Body = ({ ...props }) => {
+  const [loading, setloading] = useState(true);
+  const [listCategory, setlistCategory] = useState([]);
+  const [active, setactive] = useState(null);
+  const [dataItem, setdataItem] = useState(null);
+  const [layoutOrder, setlayoutOrder] = useState(false);
+  const [listOrder, setlistOrder] = useState([]);
+  const [sizeActive, setsizeActive] = useState(null);
+  const [price_new, setprice_new] = useState(null);
+  const [toppingActive, settoppingActive] = useState([]);
+  const [amount, setamount] = useState(null);
+  const [txtNote, settxtNote] = useState(null);
+  const [indexEdit, setindexEdit] = useState(-1);
+  const [totalAmount, settotalAmount] = useState(0);
+  const [totalPrice, settotalPrice] = useState(0);
 
-      dataItem: null,
-      layoutOrder: false,
-      listOrder: [],
-      sizeActive: null,
-      price_new: null,
-      toppingActive: [],
-      amount: null,
-      txtNote: null,
-      indexEdit: -1,
-      totalAmount: 0,
-      totalPrice: 0,
+  const onClickOutSide = () => {
+    setlayoutOrder(false);
+    setindexEdit(-1);
+    document.body.classList.remove("body");
+  };
+  const addToCartV2 = () => {
+    let txtNote = document.getElementById("form-order").value;
+    settxtNote(txtNote);
+    const objCart = {
+      ...dataItem,
+      price_new: price_new * amount,
+      amount: amount,
+      toppingActive: toppingActive,
+      txtNote: txtNote,
+      sizeActive: sizeActive,
     };
-  }
-
-  // active category
-  changeActive = (id) => {
-    this.setState({
-      active: id,
-    });
+    addToCart(objCart);
+  };
+  const editDataProduct = (item, index) => {
+    setdataItem(item);
+    setsizeActive(item.sizeActive);
+    setprice_new(item.price_new / item.amount);
+    settoppingActive(item.toppingActive);
+    setamount(item.amount);
+    settxtNote(item.txtNote);
+    setindexEdit(index);
+    setlayoutOrder(true);
+  };
+  const getTotalAmount = (data) => {
+    let totalAmounts = 0;
+    let totalPrice = 0;
+    data.map(
+      (item) => (totalAmounts += item.amount) && (totalPrice += item.price_new)
+    );
+    props.setTotalAmount(totalAmounts);
+    settotalAmount(totalAmounts);
+    settotalPrice(totalPrice);
   };
 
-  //merger data
-  merge = (data1, data2) => {
-    data1.map((category) => {
-      let arr = [];
-      data2.map((product) => {
-        if (product.categ_id.includes(category.id)) {
-          arr.push(product);
-        }
-        return arr;
-      });
-      category.listProduct = arr;
-      return category;
-    });
-    return data1;
-  };
-
-  // fetch api
-  componentDidMount() {
-    fetch("https://api.thecoffeehouse.com/api/v2/category/web")
-      .then((res) => res.json())
-      .then((data1) => {
-        if (data1.status_code !== 500) {
-          fetch("https://api.thecoffeehouse.com/api/v2/menu")
-            .then((res) => res.json())
-            .then((data2) => {
-              if (data2.status_code !== 500) {
-                let newData = this.merge(data1, data2.data);
-                this.setState({
-                  listCategory: newData,
-                  loading: false,
-                  active: newData[0].id,
-                });
-              }
-            });
-        }
-      });
-
-    if (
-      JSON.parse(localStorage.getItem("listOrder")) &&
-      JSON.parse(localStorage.getItem("listOrder")).length > 0
-    ) {
-      this.setState({
-        listOrder: JSON.parse(localStorage.getItem("listOrder")),
-      });
-      this.getTotalAmount(JSON.parse(localStorage.getItem("listOrder")));
-    }
-
- 
-  }
-
-  // get dataitem
-  getDataItem = (data) => {
-    this.setState({
-      dataItem: data,
-      layoutOrder: true,
-      price_new: data.price,
-      amount: 1,
-      sizeActive: null,
-      toppingActive: [],
-      txtNote: null,
-    });
-     document.body.classList.add("body");
-
-  };
-
-  // orderqua
-  getSize = (size, price) => {
-    this.setState({
-      sizeActive: size,
-      price_new: price,
-    });
-  };
-
-  getCheck = (data) => {
-    let coppyTopping = [...this.state.toppingActive];
-    this.state.toppingActive.includes(data.code)
-      ? (coppyTopping = this.state.toppingActive.filter(
-          (item) => item !== data.code
-        )) &&
-        this.setState({
-          toppingActive: coppyTopping,
-          price_new: this.state.price_new - data.price,
-        })
-      : coppyTopping.push(data.code) &&
-        this.setState({
-          toppingActive: coppyTopping,
-          price_new: this.state.price_new + data.price,
-        });
-  };
-
-  plusAmount = () => {
-    this.setState({
-      amount: this.state.amount + 1,
-    });
-  };
-
-  minusAmount = () => {
-    if (this.state.amount > 0) {
-      this.setState({
-        amount: this.state.amount - 1,
-      });
-    }
-  };
-
-  setTxtNote = (data) => {
-    this.setState({
-      txtNote: data,
-    });
-  };
-
-  addToCart = (data) => {
+  const addToCart = (data) => {
     let flag = 1;
-    let arrEdit = [...this.state.listOrder];
-    if (this.state.indexEdit !== -1) {
-      arrEdit = arrEdit.filter((item, index) => index !== this.state.indexEdit);
+    let arrEdit = [...listOrder];
+    if (indexEdit !== -1) {
+      arrEdit = arrEdit.filter((item, index) => index !== indexEdit);
     }
     arrEdit.map((item) =>
       item._id === data._id &&
@@ -165,136 +80,162 @@ class Body extends Component {
     );
 
     if (flag === 1) {
-      this.setState({
-        listOrder: [...arrEdit, data].filter((item) => item.amount > 0),
-      });
-      this.getTotalAmount([...arrEdit, data].filter((item) => item.amount > 0));
+      setlistOrder([...arrEdit, data].filter((item) => item.amount > 0));
+      getTotalAmount([...arrEdit, data].filter((item) => item.amount > 0));
       localStorage.setItem(
         "listOrder",
         JSON.stringify([...arrEdit, data].filter((item) => item.amount > 0))
       );
     } else {
-      this.setState({
-        listOrder: [...arrEdit],
-      });
-      this.getTotalAmount([...arrEdit]);
+      setlistOrder([...arrEdit]);
+      getTotalAmount([...arrEdit]);
       localStorage.setItem("listOrder", JSON.stringify([...arrEdit]));
     }
 
-    this.setState({
-      indexEdit: -1,
-      layoutOrder: false,
-    });
+    setindexEdit(-1);
+    setlayoutOrder(false);
     document.body.classList.remove("body");
-
   };
-  //totalAmount
-  getTotalAmount = (data) => {
-    let totalAmounts = 0;
-    let totalPrice = 0;
-    data.map(
-      (item) => (totalAmounts += item.amount) && (totalPrice += item.price_new)
-    );
-    this.props.setTotalAmount(totalAmounts);
-    this.setState({
-      totalAmount: totalAmounts,
-      totalPrice: totalPrice,
+
+  const getSize = (size, price) => {
+    setsizeActive(size);
+    setprice_new(price);
+  };
+
+  const getCheck = (data) => {
+    let coppyTopping = [...toppingActive];
+    toppingActive.includes(data.code)
+      ? (coppyTopping = toppingActive.filter((item) => item !== data.code)) &&
+        toppingActive(coppyTopping) &&
+        price_new(price_new - data.price)
+      : coppyTopping.push(data.code) &&
+        toppingActive(coppyTopping) &&
+        price_new(price_new + data.price);
+  };
+
+  const plusAmount = () => {
+    setamount(amount + 1);
+  };
+
+  const minusAmount = () => {
+    if (amount > 0) {
+      setamount(amount - 1);
+    }
+  };
+
+  const setTxtNote = (data) => {
+    settxtNote(data);
+  };
+  const getDataItem = (data) => {
+    setdataItem(data);
+    setlayoutOrder(true);
+    setprice_new(data.price);
+    setamount(1);
+    setsizeActive(null);
+    settoppingActive([]);
+    settxtNote(null);
+    document.body.classList.add("body");
+  };
+  const merge = (data1, data2) => {
+    data1.map((category) => {
+      let arr = [];
+      data2.map((product) => {
+        if (product.categ_id.includes(category.id)) {
+          arr.push(product);
+        }
+        return arr;
+      });
+      category.listProduct = arr;
+      return category;
     });
+    return data1;
+  };
+  const changeActive = (id) => {
+    setactive(id);
   };
 
-  editDataProduct = (item, index) => {
-    this.setState({
-      dataItem: item,
-      sizeActive: item.sizeActive,
-      price_new: item.price_new / item.amount,
-      toppingActive: item.toppingActive,
-      amount: item.amount,
-      txtNote: item.txtNote,
-      indexEdit: index,
-      layoutOrder: true,
-    });
-  };
+  useEffect(() => {
+    fetch("https://api.thecoffeehouse.com/api/v2/category/web")
+      .then((res) => res.json())
+      .then((data1) => {
+        if (data1.status_code !== 500) {
+          fetch("https://api.thecoffeehouse.com/api/v2/menu")
+            .then((res) => res.json())
+            .then((data2) => {
+              if (data2.status_code !== 500) {
+                let newData = merge(data1, data2.data);
+                setlistCategory(newData);
+                setloading(false);
+                setactive(newData[0].id);
+              }
+            });
+        }
+      });
 
-  addToCartV2 = () => {
-    let txtNote = document.getElementById("form-order").value;
-    this.setState({
-      txtNote: txtNote,
-    });
-    const objCart = {
-      ...this.state.dataItem,
-      price_new: this.state.price_new * this.state.amount,
-      amount: this.state.amount,
-      toppingActive: this.state.toppingActive,
-      txtNote: this.state.txtNote,
-      sizeActive: this.state.sizeActive,
-    };
-    this.addToCart(objCart);
-  };
-
-  onClickOutSide=() =>{
-    this.setState({ layoutOrder: false, indexEdit: -1 }) 
-    document.body.classList.remove("body");
-
-  }
-
-  render() {
-    return (
-      <div className="body" id="body">
-        {this.state.loading ? (
-          <PlacehoderLoading></PlacehoderLoading>
-        ) : this.state.listCategory.length <= 0 ? (
-          <NoneData></NoneData>
-        ) : (
-          <div className="container">
-            <div className="row">
-              <div className="col-left">
-                <LeftContainer
-                  dataLeft={this.state.listCategory}
-                  changeActive={this.changeActive}
-                  active={this.state.active}
-                />
-              </div>
-              <div className="col-product ">
-                <ProductContainer
-                  data={this.state.listCategory}
-                  changeActive={this.changeActive}
-                  active={this.state.active}
-                  getDataItem={this.getDataItem}
-                />
-              </div>
-              <div className="col-right">
-                <CartContainer
-                  listOrder={this.state.listOrder}
-                  editDataProduct={this.editDataProduct}
-                  totalAmount={this.state.totalAmount}
-                  totalPrice={this.state.totalPrice}
-                />
-              </div>
+    if (
+      JSON.parse(localStorage.getItem("listOrder")) &&
+      JSON.parse(localStorage.getItem("listOrder")).length > 0
+    ) {
+      setlistOrder(JSON.parse(localStorage.getItem("listOrder")));
+      getTotalAmount(JSON.parse(localStorage.getItem("listOrder")));
+    }
+  }, []);
+  return (
+    <div className="body" id="body">
+      {loading ? (
+        <PlacehoderLoading></PlacehoderLoading>
+      ) : listCategory.length <= 0 ? (
+        <NoneData></NoneData>
+      ) : (
+        <div className="container">
+          <div className="row">
+            <div className="col-left">
+              <LeftContainer
+                dataLeft={listCategory}
+                changeActive={changeActive}
+                active={active}
+              />
+            </div>
+            <div className="col-product ">
+              <ProductContainer
+                data={listCategory}
+                changeActive={changeActive}
+                active={active}
+                getDataItem={getDataItem}
+              />
+            </div>
+            <div className="col-right">
+              <CartContainer
+                listOrder={listOrder}
+                editDataProduct={editDataProduct}
+                totalAmount={totalAmount}
+                totalPrice={totalPrice}
+              />
             </div>
           </div>
-        )}
-        {this.state.layoutOrder && (
-          <Order
-            src={this.state.dataItem.image}
-            product_name={this.state.dataItem.product_name}
-     
-            onClick={this.onClickOutSide}
-            dataItem={this.state.dataItem}
-            addToCartV2={this.addToCartV2}
-            getSize={this.getSize}
-            getCheck={this.getCheck}
-            plusAmount={this.plusAmount}
-            minusAmount={this.minusAmount}
-            setTxtNote={this.setTxtNote}
-            txtNote={this.state.txtNote}
-            sizeActive={this.state.sizeActive}
-            price_new={this.state.price_new}
-            toppingActive={this.state.toppingActive}
-            amount={this.state.amount}
-          />
-        )}
-      </div>
-    );
-  }
-}
+        </div>
+      )}
+      {layoutOrder && (
+        <Order
+          src={dataItem.image}
+          product_name={dataItem.product_name}
+          onClick={onClickOutSide}
+          dataItem={dataItem}
+          addToCartV2={addToCartV2}
+          getSize={getSize}
+          getCheck={getCheck}
+          plusAmount={plusAmount}
+          minusAmount={minusAmount}
+          setTxtNote={setTxtNote}
+          txtNote={txtNote}
+          sizeActive={sizeActive}
+          price_new={price_new}
+          toppingActive={toppingActive}
+          amount={amount}
+        />
+      )}
+    </div>
+  );
+};
+
 export default Body;
